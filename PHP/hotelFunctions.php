@@ -11,6 +11,8 @@ one function to create a guid,
 and one function to control if a guid is valid.
 */
 
+$db = connect('hotel.db');
+
 function connect(string $dbName): object
 {
     $dbPath = __DIR__ . '/' . $dbName;

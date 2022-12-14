@@ -15,7 +15,12 @@
 </head>
 
 <body>
-  <h1></h1>
+  <h1>Hotell adlon</h1>
+
+  <form action="">
+
+  </form>
+
 </body>
 
 </html>
