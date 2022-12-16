@@ -52,3 +52,8 @@ function isValidUuid(string $uuid): bool
     }
     return true;
 }
+
+function book(string $bookedData): object
+{
+    $db = connect('hotel.db');
+}

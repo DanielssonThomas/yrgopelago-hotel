@@ -1,5 +1,12 @@
 <?php
+require(__DIR__ . '/PHP/hotelFunctions.php');
+require 'vendor/autoload.php';
 
+use benhall14\phpCalendar\Calendar as Calendar;
+
+$roomOneCalendar = (new Calendar);
+$roomTwoCalendar = (new Calendar);
+echo $roomOneCalendar->draw(date('2023-01-01')) . $roomTwoCalendar->draw(date('2023-01-01'));
 ?>
 
 <!DOCTYPE html>
@@ -18,7 +25,16 @@
   <h1>Hotell adlon</h1>
 
   <form action="">
+    <label for="rooms">Select room:</label>
 
+    <select name="rooms" id="">
+      <option value="budget">Budget</option>
+      <option value="standard">Standard</option>
+      <option value="luxury">Luxury</option>
+    </select>
+
+    <input type="date" name="arrivalDate" min="2023-01-01" max="2023-01-31">
+    <input type="date" name="departureDate" min="2023-01-01" max="2023-01-31">
   </form>
 
 </body>
