@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /* 
 Here's something to start your career as a hotel manager.
 
@@ -10,8 +12,6 @@ One function to connect to the database you want (it will return a PDO object wh
 one function to create a guid,
 and one function to control if a guid is valid.
 */
-
-$db = connect('hotel.db');
 
 function connect(string $dbName): object
 {
@@ -53,7 +53,41 @@ function isValidUuid(string $uuid): bool
     return true;
 }
 
-function book(string $bookedData): object
+function isBookingAvailable(string $arrivalDate, string $departureDate): bool
 {
-    $db = connect('hotel.db');
+    $dbh = connect('../hotel.db');
+    $stmt = $dbh->query('SELECT arrival_date, departure_date FROM bookings');
+    $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $isBooked = false;
+    foreach ($data as $dates) {
+        if ($dates['arrival_date'] === $arrivalDate || $dates['departure_date'] === $departureDate) {
+            $isBooked = true;
+            return false;
+        }
+    }
+    if (!$isBooked) {
+        return true;
+    }
+}
+
+function book(int $room, string $arrivalDate, string $departureDate)
+{
+    if (isBookingAvailable($arrivalDate, $departureDate)) {
+        $dbh = connect('../hotel.db');
+        $book = $dbh->prepare(
+            'INSERT INTO bookings(room_id, arrival_date, departure_date, booked)
+            VALUES(
+            :id,
+            :arrivalDate,
+            :departureDate,
+            true
+        )'
+        );
+        $book->bindParam(':id', $room, PDO::PARAM_INT);
+        $book->bindParam(':arrivalDate', $arrivalDate, PDO::PARAM_STR);
+        $book->bindParam(':departureDate', $departureDate, PDO::PARAM_STR);
+        $book->execute();
+    } else {
+        echo "This date is unfortunantly booked for this room, please try a different date";
+    }
 }
