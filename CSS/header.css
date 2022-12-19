@@ -1,7 +1,50 @@
 header {
+  position: fixed;
+  box-shadow: 0 0 5px 2px black;
+  width: 100%;
+  height: 10vh;
+  background-color: white;
+}
+
+.heading {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 5rem;
+  height: 10vh;
+}
+
+h1 {
+  z-index: 1;
+}
+
+.header-exit {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 2rem;
+  height: 2rem;
+  right: 1rem;
+}
+
+.header-exit-open {
+  display: flex;
+  cursor: pointer;
+}
+
+.header-exit div {
+  position: absolute;
+  width: 2rem;
+  height: 2px;
+  background-color: black;
+  z-index: 1;
+}
+
+.header-exit div:nth-child(1) {
+  transform: rotate(45deg);
+}
+
+.header-exit div:nth-child(2) {
+  transform: rotate(-45deg);
 }
