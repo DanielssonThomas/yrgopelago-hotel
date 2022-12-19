@@ -53,10 +53,12 @@ function isValidUuid(string $uuid): bool
     return true;
 }
 
-function isBookingAvailable(string $arrivalDate, string $departureDate): bool
+function isBookingAvailable(int $room, string $arrivalDate, string $departureDate): bool
 {
     $dbh = connect('../hotel.db');
-    $stmt = $dbh->query('SELECT arrival_date, departure_date FROM bookings');
+    $stmt = $dbh->prepare('SELECT arrival_date, departure_date FROM bookings WHERE room_id = :id');
+    $stmt->bindParam(':id', $room, PDO::PARAM_INT);
+    $stmt->execute();
     $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $isBooked = false;
     foreach ($data as $dates) {
@@ -72,7 +74,7 @@ function isBookingAvailable(string $arrivalDate, string $departureDate): bool
 
 function book(int $room, string $arrivalDate, string $departureDate)
 {
-    if (isBookingAvailable($arrivalDate, $departureDate)) {
+    if (isBookingAvailable($room, $arrivalDate, $departureDate)) {
         $dbh = connect('../hotel.db');
         $book = $dbh->prepare(
             'INSERT INTO bookings(room_id, arrival_date, departure_date, booked)

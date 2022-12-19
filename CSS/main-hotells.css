@@ -1,0 +1,52 @@
+main {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.hotel-container {
+  display: grid;
+  width: 100vw;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+}
+
+.budget-img img,
+.standard-img img,
+.luxury-img img {
+  height: 100%;
+  width: 100%;
+}
+
+.budget-img {
+  grid-column: span 6;
+}
+
+.standard-img {
+  grid-column: 7 / span 6;
+}
+
+.luxury-img {
+  grid-column: span 6;
+}
+
+.budget-info-section,
+.standard-info-section,
+.luxury-info-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.budget-info-section {
+  grid-column: 7 / span 6;
+}
+
+.standard-info-section {
+  grid-column: 1 / span 6;
+  grid-row: 2;
+}
+
+.luxury-info-section {
+  grid-column: 7 / span 6;
+}
