@@ -1,0 +1,29 @@
+.booking {
+  width: 100%;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.booking-open {
+  display: flex;
+}
+
+.shadow {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background-color: black;
+  opacity: 0.4;
+  top: 0;
+}
+
+.booking-container {
+  position: fixed;
+  border-radius: 2rem;
+  top: 20vh;
+  width: calc(100vw - 20vw);
+  height: 60vh;
+  background-color: white;
+}

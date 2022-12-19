@@ -7,8 +7,8 @@ main {
 .hotel-container {
   display: grid;
   width: 100vw;
-  grid-template-columns: repeat(12, 1fr);
-  grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(6, 1fr);
 }
 
 .budget-img img,
@@ -18,14 +18,8 @@ main {
   width: 100%;
 }
 
-.budget-img {
-  grid-column: span 6;
-}
-
-.standard-img {
-  grid-column: 7 / span 6;
-}
-
+.budget-img,
+.standard-img,
 .luxury-img {
   grid-column: span 6;
 }
@@ -38,15 +32,132 @@ main {
   align-items: center;
 }
 
-.budget-info-section {
-  grid-column: 7 / span 6;
+.budget-info-section,
+.standard-info-section,
+.luxury-info-section {
+  display: flex;
+  justify-content: space-around;
+  height: 100%;
+  text-align: center;
+  grid-column: span 6;
 }
 
-.standard-info-section {
-  grid-column: 1 / span 6;
+.budget-info-section p,
+.standard-info-section p,
+.luxury-info-section p {
+  width: calc(100% - 8rem);
+}
+
+.budget-info-section {
   grid-row: 2;
 }
 
+.standard-info-section {
+  grid-row: 4;
+}
+
 .luxury-info-section {
-  grid-column: 7 / span 6;
+  grid-row: 6;
+}
+
+.book-btn {
+  background-color: transparent;
+  border: 1px solid black;
+  cursor: pointer;
+  border-radius: 1rem;
+  padding: 0.5rem;
+}
+
+@media screen and (min-width: 768px) {
+  .hotel-container {
+    display: grid;
+    width: 100vw;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(3, 100vh);
+  }
+  .budget-img {
+    grid-column: span 6;
+  }
+
+  .standard-img {
+    grid-column: 7 / span 6;
+  }
+
+  .luxury-img {
+    grid-column: span 6;
+  }
+
+  .budget-info-section {
+    grid-column: 7 / span 6;
+    grid-row: 1;
+  }
+
+  .standard-info-section {
+    grid-column: 1 / span 6;
+    grid-row: 2;
+  }
+
+  .luxury-info-section {
+    grid-column: 7 / span 6;
+    grid-row: 3;
+  }
+
+  .budget-info-section,
+  .standard-info-section,
+  .luxury-info-section {
+    display: flex;
+    justify-content: space-around;
+    height: 40rem;
+    text-align: center;
+    align-self: center;
+  }
+
+  .budget-img img,
+  .standard-img img,
+  .luxury-img img {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+  }
+
+  .book-btn {
+    position: relative;
+    border: none;
+    width: 10rem;
+    margin-bottom: 2rem;
+    overflow: hidden;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    border-radius: 0;
+  }
+
+  .book-btn::before {
+    position: absolute;
+    content: '';
+    width: 10rem;
+    top: 0;
+    right: -10rem;
+    height: 1px;
+    background-color: black;
+    transition: right 0.5s ease;
+  }
+
+  .book-btn::after {
+    position: absolute;
+    content: '';
+    width: 10rem;
+    bottom: 0;
+    left: -10rem;
+    height: 1px;
+    background-color: black;
+    transition: left 0.5s ease;
+  }
+
+  .book-btn:hover::after {
+    left: 0;
+  }
+
+  .book-btn:hover::before {
+    right: 0;
+  }
 }
