@@ -1,7 +1,11 @@
 <main>
     <section class="hotel-container">
         <div class="budget-img">
-            <img src="christmas-bg.jpg" alt="">
+            <picture>
+                <source srcset="../Images/budget-large.jpg" media="(min-width: 768px)">
+                <source srcset="../Images/budget-medium.jpg" media="(min-width: 400px">
+                <img src="../Images/budget-small.jpg" alt="budget hotel room without walls or roof, but with a great view!">
+            </picture>
         </div>
         <section class="budget-info-section">
             <h2>Budget - room</h2>
@@ -9,9 +13,13 @@
             <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatem deserunt quibusdam sint ducimus, quas ab ea veritatis nulla harum neque voluptates et, mollitia maxime nobis repellat nesciunt magni voluptas inventore!</p>
             <button class="book-btn">Book now!</button>
         </section>
-
+        <!-- this is standard room -->
         <div class="standard-img">
-            <img src="christmas-bg.jpg" alt="">
+            <picture>
+                <source srcset="../Images/standard-large.jpg" media="(min-width: 768px)">
+                <source srcset="../Images/standard-medium.jpg" media="(min-width: 400px">
+                <img src="../Images/standard-small.jpg" alt="standard room with a cozy bed">
+            </picture>
         </div>
         <section class="standard-info-section">
             <h2>Standard - room</h2>
@@ -21,7 +29,11 @@
         </section>
 
         <div class="luxury-img">
-            <img src="christmas-bg.jpg" alt="">
+            <picture>
+                <source srcset="../Images/luxury-large.jpg" media="(min-width: 768px)">
+                <source srcset="../Images/luxury-medium.jpg" media="(min-width: 400px">
+                <img src="../Images/luxury-small.jpg" alt="luxury hotel room with a nice and tidy area!">
+            </picture>
         </div>
         <section class="luxury-info-section">
             <h2>Luxury - room</h2>

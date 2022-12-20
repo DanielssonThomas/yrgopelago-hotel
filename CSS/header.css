@@ -48,3 +48,12 @@ h1 {
 .header-exit div:nth-child(2) {
   transform: rotate(-45deg);
 }
+
+.day {
+  cursor: pointer;
+}
+
+.calendar-booked {
+  cursor: inherit;
+  background-color: grey;
+}
