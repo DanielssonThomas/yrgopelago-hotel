@@ -15,14 +15,18 @@
   background-color: white;
 }
 
-.calendar-table {
-  width: 50vw;
-}
-
 .booking-container-open {
   top: 10vh;
 }
 
 .booking-form {
   width: 50vw;
+}
+
+.calendar-closed {
+  display: none;
+}
+
+.calendar-open {
+  display: inline-table;
 }
