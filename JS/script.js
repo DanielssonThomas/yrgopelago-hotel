@@ -1,23 +1,10 @@
+//Folowing is all the queries for the website
+
+//Calendar queries
 const bookingBtns = document.querySelectorAll('.book-btn');
 const bookingSection = document.querySelector('.booking-container');
 const headerExit = document.querySelector('.header-exit');
+const calendars = document.querySelectorAll('.calendar');
 
-const toggleBookBtn = () => {
-  bookingBtns.forEach((e) => {
-    e.classList.toggle('book-btn-close');
-  });
-};
-
-headerExit.addEventListener('click', () => {
-  headerExit.classList.toggle('header-exit-open');
-  bookingSection.classList.toggle('booking-container-open');
-  toggleBookBtn();
-});
-
-bookingBtns.forEach((e) => {
-  e.addEventListener('click', () => {
-    bookingSection.classList.toggle('booking-container-open');
-    headerExit.classList.toggle('header-exit-open');
-    toggleBookBtn();
-  });
-});
+//Booking queries
+const bookingForm = document.querySelector('.book-form');

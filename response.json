@@ -1,0 +1,6 @@
+{
+  "status": {
+    "is_booking_available": false,
+    "successful_booking": false
+  }
+}

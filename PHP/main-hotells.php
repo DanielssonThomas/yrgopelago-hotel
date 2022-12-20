@@ -2,9 +2,9 @@
     <section class="hotel-container">
         <div class="budget-img">
             <picture>
-                <source srcset="../Images/budget-large.jpg" media="(min-width: 768px)">
-                <source srcset="../Images/budget-medium.jpg" media="(min-width: 400px">
-                <img src="../Images/budget-small.jpg" alt="budget hotel room without walls or roof, but with a great view!">
+                <source srcset="Images/budget-large.jpg" media="(min-width: 768px)">
+                <source srcset="Images/budget-medium.jpg" media="(min-width: 400px">
+                <img src="Images/budget-small.jpg" alt="budget hotel room without walls or roof, but with a great view!">
             </picture>
         </div>
         <section class="budget-info-section">
@@ -16,9 +16,9 @@
         <!-- this is standard room -->
         <div class="standard-img">
             <picture>
-                <source srcset="../Images/standard-large.jpg" media="(min-width: 768px)">
-                <source srcset="../Images/standard-medium.jpg" media="(min-width: 400px">
-                <img src="../Images/standard-small.jpg" alt="standard room with a cozy bed">
+                <source srcset="Images/standard-large.jpg" media="(min-width: 768px)">
+                <source srcset="Images/standard-medium.jpg" media="(min-width: 400px">
+                <img src="Images/standard-small.jpg" alt="standard room with a cozy bed">
             </picture>
         </div>
         <section class="standard-info-section">
@@ -30,9 +30,9 @@
 
         <div class="luxury-img">
             <picture>
-                <source srcset="../Images/luxury-large.jpg" media="(min-width: 768px)">
-                <source srcset="../Images/luxury-medium.jpg" media="(min-width: 400px">
-                <img src="../Images/luxury-small.jpg" alt="luxury hotel room with a nice and tidy area!">
+                <source srcset="Images/luxury-large.jpg" media="(min-width: 768px)">
+                <source srcset="Images/luxury-medium.jpg" media="(min-width: 400px">
+                <img src="Images/luxury-small.jpg" alt="luxury hotel room with a nice and tidy area!">
             </picture>
         </div>
         <section class="luxury-info-section">

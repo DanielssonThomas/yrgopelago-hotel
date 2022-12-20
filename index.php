@@ -2,27 +2,6 @@
 require(__DIR__ . '/PHP/hotelFunctions.php');
 require 'vendor/autoload.php';
 
-use benhall14\phpCalendar\Calendar as Calendar;
-
-if (isset($_POST['room'], $_POST['arrivalDate'], $_POST['departureDate'])) {
-  $room = $_POST['room'];
-  $arrivalDate = $_POST['arrivalDate'];
-  $departureDate = $_POST['departureDate'];
-
-  if ($room === "budget") {
-    $room = 1;
-  } else if ($room === "standard") {
-    $room = 2;
-  } else {
-    $room = 3;
-  }
-
-  if ($arrivalDate == "" || $departureDate == "") {
-    echo "You must enter arrival and departure dates";
-  } else {
-    book($room, $arrivalDate, $departureDate);
-  }
-}
 ?>
 
 <!DOCTYPE html>
@@ -46,9 +25,10 @@ if (isset($_POST['room'], $_POST['arrivalDate'], $_POST['departureDate'])) {
   require(__DIR__ . '/PHP/header.php');
   require(__DIR__ . '/PHP/main-hotells.php');
   ?>
-
-  <script src="JS/calendar.js"></script>
   <script src="JS/script.js"></script>
+  <script src="JS/booking.js"></script>
+  <script src="JS/calendar.js"></script>
+
 </body>
 
 </html>

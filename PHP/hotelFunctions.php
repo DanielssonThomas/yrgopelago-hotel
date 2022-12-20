@@ -12,6 +12,8 @@ one function to create a guid,
 and one function to control if a guid is valid.
 */
 
+$dbh = connect('../hotel.db');
+
 function connect(string $dbName): object
 {
     $dbPath = __DIR__ . '/' . $dbName;
@@ -28,8 +30,6 @@ function connect(string $dbName): object
     }
     return $db;
 }
-
-$dbh = connect('../hotel.db');
 
 function guidv4(string $data = null): string
 {
@@ -54,6 +54,22 @@ function isValidUuid(string $uuid): bool
     return true;
 }
 
+if (isset($_POST['room'], $_POST['arrivalDate'], $_POST['departureDate'])) {
+    $room = $_POST['room'];
+    $arrivalDate = $_POST['arrivalDate'];
+    $departureDate = $_POST['departureDate'];
+
+    if ($room === "budget") {
+        $room = 1;
+    } else if ($room === "standard") {
+        $room = 2;
+    } else {
+        $room = 3;
+    }
+
+    book($room, $arrivalDate, $departureDate);
+}
+
 function isBookingAvailable(int $room, string $arrivalDate, string $departureDate): bool
 {
     global $dbh;
@@ -69,14 +85,18 @@ function isBookingAvailable(int $room, string $arrivalDate, string $departureDat
         }
     }
     if (!$isBooked) {
+        $status['is_booking_available'] = true;
         return true;
     }
 }
 
 function book(int $room, string $arrivalDate, string $departureDate)
 {
+    //Creates new connection for database check
     $dbh = connect('../hotel.db');
     if (isBookingAvailable($room, $arrivalDate, $departureDate)) {
+        global $status;
+        //As the booking is available it prepares and binds paramaters before execution of the query
         $book = $dbh->prepare(
             'INSERT INTO bookings(room_id, arrival_date, departure_date)
             VALUES(
@@ -90,6 +110,11 @@ function book(int $room, string $arrivalDate, string $departureDate)
         $book->bindParam(':departureDate', $departureDate, PDO::PARAM_STR);
         $book->execute();
     } else {
-        echo "This date is unfortunantly booked for this room, please try a different date";
+        $responseData = file_get_contents('../response.json');
+        $responseData = json_decode($responseData, true);
+        $responseData->is_booking_available = true;
+        $responseData->successful_booking = false;
+        header('Content-Type: application/json');
+        echo json_encode($responseData);
     }
 }

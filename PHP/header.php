@@ -8,13 +8,8 @@
     </section>
     <div class="booking">
         <section class="booking-container">
-            <?php
-            // $stmt = $dbh->query('SELECT room_id,arrival_date, departure_date FROM bookings');
-            // echo "<pre>";
-            // print_r($stmt->fetchAll(PDO::FETCH_ASSOC));
-            ?>
             <aside class="booking-form">
-                <form action="index.php" method="POST">
+                <form method="POST" class="book-form">
                     <label for="rooms">Select room:</label>
 
                     <select name="room">
