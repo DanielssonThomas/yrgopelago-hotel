@@ -6,6 +6,7 @@
 }
 
 .booking-container {
+  display: flex;
   position: absolute;
   top: -90vh;
   width: 100vw;
@@ -14,6 +15,14 @@
   background-color: white;
 }
 
+.calendar-table {
+  width: 50vw;
+}
+
 .booking-container-open {
   top: 10vh;
+}
+
+.booking-form {
+  width: 50vw;
 }

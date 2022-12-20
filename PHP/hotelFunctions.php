@@ -1,7 +1,6 @@
 <?php
 
 declare(strict_types=1);
-
 /* 
 Here's something to start your career as a hotel manager.
 
@@ -30,6 +29,8 @@ function connect(string $dbName): object
     return $db;
 }
 
+$dbh = connect('../hotel.db');
+
 function guidv4(string $data = null): string
 {
     // Generate 16 bytes (128 bits) of random data or use the data passed into the function.
@@ -55,7 +56,7 @@ function isValidUuid(string $uuid): bool
 
 function isBookingAvailable(int $room, string $arrivalDate, string $departureDate): bool
 {
-    $dbh = connect('../hotel.db');
+    global $dbh;
     $stmt = $dbh->prepare('SELECT arrival_date, departure_date FROM bookings WHERE room_id = :id');
     $stmt->bindParam(':id', $room, PDO::PARAM_INT);
     $stmt->execute();
@@ -74,15 +75,14 @@ function isBookingAvailable(int $room, string $arrivalDate, string $departureDat
 
 function book(int $room, string $arrivalDate, string $departureDate)
 {
+    $dbh = connect('../hotel.db');
     if (isBookingAvailable($room, $arrivalDate, $departureDate)) {
-        $dbh = connect('../hotel.db');
         $book = $dbh->prepare(
-            'INSERT INTO bookings(room_id, arrival_date, departure_date, booked)
+            'INSERT INTO bookings(room_id, arrival_date, departure_date)
             VALUES(
             :id,
             :arrivalDate,
-            :departureDate,
-            true
+            :departureDate
         )'
         );
         $book->bindParam(':id', $room, PDO::PARAM_INT);

@@ -37,6 +37,7 @@ if (isset($_POST['room'], $_POST['arrivalDate'], $_POST['departureDate'])) {
   <link rel="stylesheet" href="CSS/header.css" />
   <link rel="stylesheet" href="CSS/main-hotells.css" />
   <link rel="stylesheet" href="CSS/booking.css" />
+
   <title>Christmas assignment</title>
 </head>
 
@@ -46,7 +47,8 @@ if (isset($_POST['room'], $_POST['arrivalDate'], $_POST['departureDate'])) {
   require(__DIR__ . '/PHP/main-hotells.php');
   ?>
 
-  <script src="script.js"></script>
+  <script src="JS/calendar.js"></script>
+  <script src="JS/script.js"></script>
 </body>
 
 </html>
