@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /* 
 Here's something to start your career as a hotel manager.
 
@@ -54,20 +55,36 @@ function isValidUuid(string $uuid): bool
     return true;
 }
 
-if (isset($_POST['room'], $_POST['arrivalDate'], $_POST['departureDate'])) {
-    $room = $_POST['room'];
-    $arrivalDate = $_POST['arrivalDate'];
-    $departureDate = $_POST['departureDate'];
+function cashInTransferCode(string $transferCode)
+{
+    $client = new Client();
+    $response = $client->request('POST', 'https://yrgopelago.se/centralbank/deposit', [
+        'form_params' => [
+            'user' => 'thomas',
+            'transferCode' => $transferCode
+        ]
+    ]);
+}
 
-    if ($room === "budget") {
-        $room = 1;
-    } else if ($room === "standard") {
-        $room = 2;
-    } else {
-        $room = 3;
+function isTransferCodeValid(string $transferCode, int $cost): bool
+{
+    $client = new Client();
+
+    $response = $client->request('POST', 'https://yrgopelago.se/centralbank/transferCode', [
+        'form_params' => [
+            'transferCode' => $transferCode,
+            'totalcost' => $cost
+        ]
+    ]);
+
+    if ($response->hasHeader('Content-Length')) {
+        $data = json_decode($response->getBody()->getContents(), true);
+        if (array_key_exists('error', $data)) {
+            return false;
+        } else {
+            return true;
+        }
     }
-
-    book($room, $arrivalDate, $departureDate);
 }
 
 function isBookingAvailable(int $room, string $arrivalDate, string $departureDate): bool
@@ -85,7 +102,6 @@ function isBookingAvailable(int $room, string $arrivalDate, string $departureDat
         }
     }
     if (!$isBooked) {
-        $status['is_booking_available'] = true;
         return true;
     }
 }
@@ -94,27 +110,17 @@ function book(int $room, string $arrivalDate, string $departureDate)
 {
     //Creates new connection for database check
     $dbh = connect('../hotel.db');
-    if (isBookingAvailable($room, $arrivalDate, $departureDate)) {
-        global $status;
-        //As the booking is available it prepares and binds paramaters before execution of the query
-        $book = $dbh->prepare(
-            'INSERT INTO bookings(room_id, arrival_date, departure_date)
+    //As the booking is available it prepares and binds paramaters before execution of the query
+    $book = $dbh->prepare(
+        'INSERT INTO bookings(room_id, arrival_date, departure_date)
             VALUES(
             :id,
             :arrivalDate,
             :departureDate
         )'
-        );
-        $book->bindParam(':id', $room, PDO::PARAM_INT);
-        $book->bindParam(':arrivalDate', $arrivalDate, PDO::PARAM_STR);
-        $book->bindParam(':departureDate', $departureDate, PDO::PARAM_STR);
-        $book->execute();
-    } else {
-        $responseData = file_get_contents('../response.json');
-        $responseData = json_decode($responseData, true);
-        $responseData->is_booking_available = true;
-        $responseData->successful_booking = false;
-        header('Content-Type: application/json');
-        echo json_encode($responseData);
-    }
+    );
+    $book->bindParam(':id', $room, PDO::PARAM_INT);
+    $book->bindParam(':arrivalDate', $arrivalDate, PDO::PARAM_STR);
+    $book->bindParam(':departureDate', $departureDate, PDO::PARAM_STR);
+    $book->execute();
 }

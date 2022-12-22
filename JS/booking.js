@@ -6,5 +6,7 @@ bookingForm.addEventListener('submit', (e) => {
   fetch('PHP/booking.php', {
     method: 'POST',
     body: formData,
-  }).then(console.log);
+  })
+    .then((response) => response.json())
+    .then(console.log);
 });
