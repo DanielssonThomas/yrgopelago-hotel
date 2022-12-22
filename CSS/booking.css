@@ -24,10 +24,24 @@
   padding: 0 5rem;
 }
 
+.booking-form h2 {
+  text-align: center;
+}
+
 .calendar-closed {
   display: none;
 }
 
 .calendar-open {
   display: inline-table;
+}
+
+.form-err {
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 5rem;
+  background-color: red;
 }
