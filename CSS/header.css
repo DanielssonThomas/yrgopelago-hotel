@@ -57,3 +57,19 @@ h1 {
   cursor: inherit;
   background-color: grey;
 }
+
+.booking-err-field {
+  position: absolute;
+  width: 100%;
+  height: 3rem;
+}
+
+.form-err {
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 3rem;
+  background-color: red;
+}

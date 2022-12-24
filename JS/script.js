@@ -8,3 +8,4 @@ const calendars = document.querySelectorAll('.calendar');
 
 //Booking queries
 const bookingForm = document.querySelector('.book-form');
+const bookingErrField = document.querySelector('.booking-err-field');

@@ -106,6 +106,34 @@ function isBookingAvailable(int $room, string $arrivalDate, string $departureDat
     }
 }
 
+function calcRoomPrice(string $roomName, string $arrivalDate, string $departureDate): int
+{
+    $numberOfNights = 0;
+    $totalPrice = 0;
+    $arrival = strtotime($arrivalDate);
+    $departure = strtotime($departureDate);
+    $dateDiff = $departure - $arrival / (60 * 60 * 24);
+
+    for ($i = 0; $i < $dateDiff; $i++) {
+        $numberOfNights++;
+    }
+
+    for ($i = 0; $i < $numberOfNights; $i++) {
+        if ($roomName === 'budget') {
+            $totalPrice++;
+        }
+
+        if ($roomName === 'standard') {
+            $totalPrice += 2;
+        }
+
+        if ($roomName === 'luxury') {
+            $totalPrice += 3;
+        }
+    }
+    return $totalPrice;
+}
+
 function book(int $room, string $arrivalDate, string $departureDate)
 {
     //Creates new connection for database check

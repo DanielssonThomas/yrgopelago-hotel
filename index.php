@@ -24,7 +24,7 @@ use Dotenv\Dotenv;
 
 <body>
   <?php
-  require(__DIR__ . '/PHP/header.php');
+  require(__DIR__ . '/PHP/header-booking.php');
   require(__DIR__ . '/PHP/main-hotells.php');
   ?>
   <script src="JS/script.js"></script>
