@@ -87,6 +87,24 @@ function isTransferCodeValid(string $transferCode, int $cost): bool
     }
 }
 
+function seperateToDayValue(string $arrivalDate, string $departureDate): array
+{
+    $daysInbetween = [];
+
+    $arrivalDateArray = explode('-', $arrivalDate);
+    $departureDateArray = explode('-', $departureDate);
+
+    $arrivalDay = $arrivalDateArray[2] - 1;
+    $departureDay = $departureDateArray[2];
+    $saveDate = $arrivalDay;
+
+    while ($saveDate != $departureDay) {
+        array_push($daysInbetween, $saveDate);
+        $saveDate++;
+    }
+    return $daysInbetween;
+}
+
 function isBookingAvailable(int $room, string $arrivalDate, string $departureDate): bool
 {
     global $dbh;
@@ -96,9 +114,14 @@ function isBookingAvailable(int $room, string $arrivalDate, string $departureDat
     $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $isBooked = false;
     foreach ($data as $dates) {
-        if ($dates['arrival_date'] === $arrivalDate || $dates['departure_date'] === $departureDate) {
-            $isBooked = true;
-            return false;
+
+        foreach (seperateToDayValue($dates['arrival_date'], $dates['departure_date']) as $bookedDay) {
+            foreach (seperateToDayValue($arrivalDate, $departureDate) as $bookingDay) {
+                if ($bookedDay == $bookingDay) {
+                    $isBooked = true;
+                    return false;
+                }
+            }
         }
     }
     if (!$isBooked) {
@@ -106,19 +129,24 @@ function isBookingAvailable(int $room, string $arrivalDate, string $departureDat
     }
 }
 
-function calcRoomPrice(string $roomName, string $arrivalDate, string $departureDate): int
+function calcRoomPrice(string $roomName, string $arrivalDate, string $departureDate): float
 {
     $numberOfNights = 0;
+    $discount = false;
     $totalPrice = 0;
-    $arrival = strtotime($arrivalDate);
-    $departure = strtotime($departureDate);
-    $dateDiff = $departure - $arrival / (60 * 60 * 24);
+    $arrivalArray = explode('-', $arrivalDate);
+    $departureArray = explode('-', $departureDate);
+    $arrivalDay = (int)$arrivalArray[2];
+    $departureDay = (int)$departureArray[2];
+    $dateDiff = $departureDay - $arrivalDay;
 
     for ($i = 0; $i < $dateDiff; $i++) {
         $numberOfNights++;
     }
 
-    for ($i = 0; $i < $numberOfNights; $i++) {
+    $numberOfNights = round($numberOfNights / 2);
+
+    for ($i = 0; $i <= $numberOfNights; $i++) {
         if ($roomName === 'budget') {
             $totalPrice++;
         }
@@ -131,24 +159,35 @@ function calcRoomPrice(string $roomName, string $arrivalDate, string $departureD
             $totalPrice += 3;
         }
     }
+    if ($dateDiff > 3) {
+        $totalPrice *= 0.7;
+    }
     return $totalPrice;
 }
 
-function book(int $room, string $arrivalDate, string $departureDate)
+function book(int $room, string $arrivalDate, string $departureDate, bool $featSauna, bool $featTour, bool $featBed, float $totalCost)
 {
     //Creates new connection for database check
     $dbh = connect('../hotel.db');
     //As the booking is available it prepares and binds paramaters before execution of the query
     $book = $dbh->prepare(
-        'INSERT INTO bookings(room_id, arrival_date, departure_date)
+        'INSERT INTO bookings(room_id, arrival_date, departure_date, sauna, tour, bed, total_cost)
             VALUES(
             :id,
             :arrivalDate,
-            :departureDate
+            :departureDate,
+            :sauna,
+            :tour,
+            :bed,
+            :total_cost
         )'
     );
     $book->bindParam(':id', $room, PDO::PARAM_INT);
     $book->bindParam(':arrivalDate', $arrivalDate, PDO::PARAM_STR);
     $book->bindParam(':departureDate', $departureDate, PDO::PARAM_STR);
+    $book->bindParam(':sauna', $featSauna, PDO::PARAM_BOOL);
+    $book->bindParam(':tour', $featTour, PDO::PARAM_BOOL);
+    $book->bindParam(':bed', $featBed, PDO::PARAM_BOOL);
+    $book->bindParam(':total_cost', $totalCost);
     $book->execute();
 }

@@ -34,17 +34,17 @@
 
                     <section class="book-form-feat">
                         <div>
-                            <input type="checkbox" name="features[]" value="feature-sauna" id="feat-sauna">
+                            <input type="checkbox" name="features[]" value="sauna" id="feat-sauna">
                             <label for="feat-sauna">Add access to our relaxing sauna 2€</label>
                         </div>
 
                         <div>
-                            <input type="checkbox" name="features[]" value="feature-tour" id="feat-tour">
+                            <input type="checkbox" name="features[]" value="tour" id="feat-tour">
                             <label for="feat-tour">Add an adventurous tour across the island 3€</label>
                         </div>
 
                         <div>
-                            <input type="checkbox" name="features[]" value="feature-room" id="feat-room">
+                            <input type="checkbox" name="features[]" value="bed" id="feat-room">
                             <label for="feat-room">Add an extra bed to your room 2€</label>
                         </div>
                     </section>
