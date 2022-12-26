@@ -2,6 +2,14 @@
 
 declare(strict_types=1);
 require(__DIR__ . '/hotelFunctions.php');
+
+$priceData = file_get_contents(__DIR__ . '/../pricing.json');
+$priceData = json_decode($priceData, true);
+
+$saunaPrice = $priceData['feature_prices']['sauna'];
+$tourPrice = $priceData['feature_prices']['tour'];
+$bedPrice = $priceData['feature_prices']['bed'];
+
 session_start();
 
 // $_POST['transferCode']
@@ -31,17 +39,17 @@ if (isset($_POST['room'], $_POST['arrivalDate'], $_POST['departureDate'])) {
         $features = $_POST['features'];
         foreach ($features as $feature) {
             if ($feature === 'sauna') {
-                $status['totalCost'] += 2;
+                $status['totalCost'] += $saunaPrice;
                 $featSauna = true;
             }
 
             if ($feature === 'tour') {
-                $status['totalCost'] += 3;
+                $status['totalCost'] += $tourPrice;
                 $featTour = true;
             }
 
             if ($feature === 'bed') {
-                $status['totalCost'] += 2;
+                $status['totalCost'] += $bedPrice;
                 $featBed = true;
             }
         }

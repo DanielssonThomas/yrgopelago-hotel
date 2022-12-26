@@ -3,6 +3,13 @@
 declare(strict_types=1);
 require_once(__DIR__ . "/../vendor/autoload.php");
 
+$priceData = file_get_contents(__DIR__ . '/../pricing.json');
+$priceData = json_decode($priceData, true);
+
+$budgetPrice = $priceData['room_prices']['budget_price'];
+$standardPrice = $priceData['room_prices']['standard_price'];
+$luxuryPrice = $priceData['room_prices']['luxury_price'];
+
 use GuzzleHttp\Client;
 use Dotenv\Dotenv;
 
@@ -139,6 +146,7 @@ function isBookingAvailable(int $room, string $arrivalDate, string $departureDat
 
 function calcRoomPrice(string $roomName, string $arrivalDate, string $departureDate): float
 {
+    global $budgetPrice, $standardPrice, $luxuryPrice;
     $numberOfNights = 0;
     $totalPrice = 0;
     $arrivalArray = explode('-', $arrivalDate);
@@ -155,15 +163,15 @@ function calcRoomPrice(string $roomName, string $arrivalDate, string $departureD
 
     for ($i = 0; $i <= $numberOfNights; $i++) {
         if ($roomName === 'budget') {
-            $totalPrice++;
+            $totalPrice += $budgetPrice;
         }
 
         if ($roomName === 'standard') {
-            $totalPrice += 2;
+            $totalPrice += $standardPrice;
         }
 
         if ($roomName === 'luxury') {
-            $totalPrice += 3;
+            $totalPrice += $luxuryPrice;
         }
     }
     if ($dateDiff > 3) {

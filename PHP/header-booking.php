@@ -1,3 +1,14 @@
+<?php
+
+$priceData = file_get_contents(__DIR__ . '/../pricing.json');
+$priceData = json_decode($priceData, true);
+
+$saunaPrice = $priceData['feature_prices']['sauna'];
+$tourPrice = $priceData['feature_prices']['tour'];
+$bedPrice = $priceData['feature_prices']['bed'];
+
+?>
+
 <header>
     <section class="heading">
         <h1>Hotell</h1>
@@ -35,17 +46,17 @@
                     <section class="book-form-feat">
                         <div>
                             <input type="checkbox" name="features[]" value="sauna" id="feat-sauna">
-                            <label for="feat-sauna">Add access to our relaxing sauna 2€</label>
+                            <label for="feat-sauna">Add access to our relaxing sauna <?= $saunaPrice ?>€</label>
                         </div>
 
                         <div>
                             <input type="checkbox" name="features[]" value="tour" id="feat-tour">
-                            <label for="feat-tour">Add an adventurous tour across the island 3€</label>
+                            <label for="feat-tour">Add an adventurous tour across the island <?= $tourPrice ?>€</label>
                         </div>
 
                         <div>
                             <input type="checkbox" name="features[]" value="bed" id="feat-room">
-                            <label for="feat-room">Add an extra bed to your room 2€</label>
+                            <label for="feat-room">Add an extra bed to your room <?= $bedPrice ?>€</label>
                         </div>
                     </section>
                     <button type="submit">SUBMIT</button>

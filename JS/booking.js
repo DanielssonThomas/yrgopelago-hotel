@@ -35,7 +35,7 @@ bookingForm.addEventListener('submit', (e) => {
         response['is_booking_available'] &&
         response['is_transferCode_valid']
       ) {
-        window.location.href = '/PHP/booked.php';
+        window.location.href = 'PHP/booked.php';
       }
     });
 });

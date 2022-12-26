@@ -11,8 +11,6 @@
         </div>
     </form>
     <section class="footer-result-container">
-        <pre class="footer-result">
-
-        </pre>
+        <pre class="footer-result"></pre>
     </section>
 </footer>
