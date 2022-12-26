@@ -1,7 +1,12 @@
 <?php
 
 declare(strict_types=1);
+require_once(__DIR__ . "/../vendor/autoload.php");
 
+use GuzzleHttp\Client;
+use Dotenv\Dotenv;
+
+$client = new Client();
 /* 
 Here's something to start your career as a hotel manager.
 
@@ -57,7 +62,7 @@ function isValidUuid(string $uuid): bool
 
 function cashInTransferCode(string $transferCode)
 {
-    $client = new Client();
+    global $client;
     $response = $client->request('POST', 'https://yrgopelago.se/centralbank/deposit', [
         'form_params' => [
             'user' => 'thomas',
@@ -66,24 +71,27 @@ function cashInTransferCode(string $transferCode)
     ]);
 }
 
-function isTransferCodeValid(string $transferCode, int $cost): bool
+function isTransferCodeValid(string $transferCode, float $cost): bool
 {
-    $client = new Client();
+    global $client;
+    if (isValidUuid($transferCode)) {
+        $response = $client->request('POST', 'https://yrgopelago.se/centralbank/transferCode', [
+            'form_params' => [
+                'transferCode' => $transferCode,
+                'totalcost' => $cost
+            ]
+        ]);
 
-    $response = $client->request('POST', 'https://yrgopelago.se/centralbank/transferCode', [
-        'form_params' => [
-            'transferCode' => $transferCode,
-            'totalcost' => $cost
-        ]
-    ]);
-
-    if ($response->hasHeader('Content-Length')) {
-        $data = json_decode($response->getBody()->getContents(), true);
-        if (array_key_exists('error', $data)) {
-            return false;
-        } else {
-            return true;
+        if ($response->hasHeader('Content-Length')) {
+            $data = json_decode($response->getBody()->getContents(), true);
+            if (array_key_exists('error', $data)) {
+                return false;
+            } else {
+                return true;
+            }
         }
+    } else {
+        return false;
     }
 }
 

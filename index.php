@@ -1,9 +1,5 @@
 <?php
 require(__DIR__ . '/PHP/hotelFunctions.php');
-require 'vendor/autoload.php';
-
-use GuzzleHttp\Client;
-use Dotenv\Dotenv;
 ?>
 
 <!DOCTYPE html>
