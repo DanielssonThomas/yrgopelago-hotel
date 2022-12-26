@@ -13,25 +13,32 @@ $sessionData = array(
     'bed' => $_SESSION['bed']
 );
 
-$bookedTemplate = file_get_contents('../booking-confimation.json');
+$bookedTemplate = file_get_contents(__DIR__ . '/../booking-confimation.json');
 $bookedTemplate = json_decode($bookedTemplate, true);
+
+$priceData = file_get_contents(__DIR__ . '/../pricing.json');
+$priceData = json_decode($priceData, true);
+
+$saunaPrice = $priceData['feature_prices']['sauna'];
+$tourPrice = $priceData['feature_prices']['tour'];
+$bedPrice = $priceData['feature_prices']['bed'];
 
 $bookedTemplate['arrival_date'] = $sessionData['arrivalDate'];
 $bookedTemplate['departure_date'] = $sessionData['departureDate'];
 $bookedTemplate['total_cost'] = $sessionData['totalCost'];
 
 if ($sessionData['sauna']) {
-    $featureEntry = array('sauna' => $sessionData['sauna'], 'cost' => 2);
+    $featureEntry = array('sauna' => $sessionData['sauna'], 'cost' => $saunaPrice);
     array_push($bookedTemplate['features'], $featureEntry);
 }
 
 if ($sessionData['tour']) {
-    $featureEntry = array('Island_tour' => $sessionData['tour'], 'cost' => 3);
+    $featureEntry = array('Island_tour' => $sessionData['tour'], 'cost' => $tourPrice);
     array_push($bookedTemplate['features'], $featureEntry);
 }
 
 if ($sessionData['bed']) {
-    $featureEntry = array('extra_bed' => $sessionData['bed'], 'cost' => 2);
+    $featureEntry = array('extra_bed' => $sessionData['bed'], 'cost' => $bedPrice);
     array_push($bookedTemplate['features'], $featureEntry);
 }
 
