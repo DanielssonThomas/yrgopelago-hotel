@@ -136,34 +136,4 @@ main {
     border-right: 1px solid black;
     border-radius: 0;
   }
-
-  .book-btn::before {
-    position: absolute;
-    content: '';
-    width: 10rem;
-    top: 0;
-    right: -10rem;
-    height: 1px;
-    background-color: black;
-    transition: right 0.5s ease;
-  }
-
-  .book-btn::after {
-    position: absolute;
-    content: '';
-    width: 10rem;
-    bottom: 0;
-    left: -10rem;
-    height: 1px;
-    background-color: black;
-    transition: left 0.5s ease;
-  }
-
-  .book-btn:hover::after {
-    left: 0;
-  }
-
-  .book-btn:hover::before {
-    right: 0;
-  }
 }

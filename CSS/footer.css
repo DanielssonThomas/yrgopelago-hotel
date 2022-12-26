@@ -1,0 +1,41 @@
+footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 40rem;
+  border-top: 1px solid black;
+}
+
+.footer-form {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+  height: 8rem;
+  position: relative;
+}
+
+.footer-form div {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.footer-form input {
+  width: 13rem;
+  height: 2rem;
+}
+
+.footer-result-container {
+  max-height: 0;
+  transition: max-height 3s ease;
+}
+
+.footer-result-container-open {
+  color: white;
+  background-color: #2c2f33;
+  padding: 2rem;
+  width: 25rem;
+  max-height: 50rem;
+}

@@ -1,5 +1,6 @@
 <?php
 require(__DIR__ . '/PHP/hotelFunctions.php');
+
 ?>
 
 <!DOCTYPE html>
@@ -14,6 +15,7 @@ require(__DIR__ . '/PHP/hotelFunctions.php');
   <link rel="stylesheet" href="CSS/header.css" />
   <link rel="stylesheet" href="CSS/main-hotells.css" />
   <link rel="stylesheet" href="CSS/booking.css" />
+  <link rel="stylesheet" href="CSS/footer.css" />
 
   <title>Christmas assignment</title>
 </head>
@@ -22,10 +24,12 @@ require(__DIR__ . '/PHP/hotelFunctions.php');
   <?php
   require(__DIR__ . '/PHP/header-booking.php');
   require(__DIR__ . '/PHP/main-hotells.php');
+  require(__DIR__ . '/PHP/footer.php');
   ?>
   <script src="JS/script.js"></script>
   <script src="JS/booking.js"></script>
   <script src="JS/calendar.js"></script>
+  <script src="JS/booking-search.js"></script>
 
 </body>
 

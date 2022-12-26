@@ -1,0 +1,28 @@
+@font-face {
+  font-family: 'Montserrat-l';
+  src: url('../Fonts/Montserrat-Light.woff2') format('woff2'),
+    url('../Fonts/Montserrat-Light.woff') format('woff');
+}
+@font-face {
+  font-family: 'Montserrat-m';
+  src: url('../Fonts/Montserrat-Medium.woff2') format('woff2'),
+    url('../Fonts/Montserrat-Medium.woff') format('woff');
+}
+@font-face {
+  font-family: 'Montserrat-b';
+  src: url('../Fonts/Montserrat-Bold.woff2') format('woff2'),
+    url('../Fonts/Montserrat-Bold.woff') format('woff');
+}
+
+body {
+  font-family: 'Montserrat-m';
+}
+
+h1 {
+  font-family: 'Montserrat-b';
+  letter-spacing: 2px;
+}
+
+q {
+  font-family: 'Montserrat-l';
+}

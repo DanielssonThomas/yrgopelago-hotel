@@ -9,3 +9,8 @@ const calendars = document.querySelectorAll('.calendar');
 //Booking queries
 const bookingForm = document.querySelector('.book-form');
 const bookingErrField = document.querySelector('.booking-err-field');
+
+//Footer queries
+const bookSearchForm = document.querySelector('.footer-form');
+const bookSearchResult = document.querySelector('.footer-result');
+const bookSearchContainer = document.querySelector('.footer-result-container');
