@@ -16,5 +16,23 @@ header {
 }
 
 .booked-contents {
-  width: 85vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.booked-uuid p {
+  text-align: center;
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 1rem;
+  background-color: #2c2f33;
+}
+
+.booked-jsonData {
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 1rem;
+  background-color: #2c2f33;
 }

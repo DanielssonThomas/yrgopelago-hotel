@@ -140,7 +140,6 @@ function isBookingAvailable(int $room, string $arrivalDate, string $departureDat
 function calcRoomPrice(string $roomName, string $arrivalDate, string $departureDate): float
 {
     $numberOfNights = 0;
-    $discount = false;
     $totalPrice = 0;
     $arrivalArray = explode('-', $arrivalDate);
     $departureArray = explode('-', $departureDate);
@@ -173,13 +172,14 @@ function calcRoomPrice(string $roomName, string $arrivalDate, string $departureD
     return $totalPrice;
 }
 
-function book(int $room, string $arrivalDate, string $departureDate, bool $featSauna, bool $featTour, bool $featBed, float $totalCost)
+function book(int $room, string $arrivalDate, string $departureDate, bool $featSauna, bool $featTour, bool $featBed, float $totalCost): string
 {
     //Creates new connection for database check
     $dbh = connect('../hotel.db');
+    $uuid = guidv4();
     //As the booking is available it prepares and binds paramaters before execution of the query
     $book = $dbh->prepare(
-        'INSERT INTO bookings(room_id, arrival_date, departure_date, sauna, tour, bed, total_cost)
+        'INSERT INTO bookings(room_id, arrival_date, departure_date, sauna, tour, bed, total_cost, bookingUID)
             VALUES(
             :id,
             :arrivalDate,
@@ -187,7 +187,8 @@ function book(int $room, string $arrivalDate, string $departureDate, bool $featS
             :sauna,
             :tour,
             :bed,
-            :total_cost
+            :total_cost,
+            :bookingUID
         )'
     );
     $book->bindParam(':id', $room, PDO::PARAM_INT);
@@ -197,5 +198,7 @@ function book(int $room, string $arrivalDate, string $departureDate, bool $featS
     $book->bindParam(':tour', $featTour, PDO::PARAM_BOOL);
     $book->bindParam(':bed', $featBed, PDO::PARAM_BOOL);
     $book->bindParam(':total_cost', $totalCost);
+    $book->bindParam(':bookingUID', $uuid, PDO::PARAM_STR);
     $book->execute();
+    return $uuid;
 }
