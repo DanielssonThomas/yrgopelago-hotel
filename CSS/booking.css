@@ -46,6 +46,10 @@
   padding: 0.2rem 0.4rem;
 }
 
+.book-form button {
+  align-self: center;
+}
+
 .book-form-room,
 .book-form-date,
 .book-form-transferCode {

@@ -91,7 +91,6 @@ if ($sessionData['bed']) {
         </section>
     </main>
     <script src="/JS/script.js"></script>
-    <script src="/JS/calendar.js"></script>
 
 </body>
 

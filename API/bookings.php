@@ -86,7 +86,7 @@ if (isset($_POST['room'], $_POST['arrivalDate'], $_POST['departureDate'])) {
     }
 
     header('Content-type: application/json');
-    if ($bookingSuccessful) {
+    if (false) {
         $bookedTemplate['arrival_date'] = $arrivalDate;
         $bookedTemplate['departure_date'] = $departureDate;
         $bookedTemplate['total_cost'] = $totalCost;
