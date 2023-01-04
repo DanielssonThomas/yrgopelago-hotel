@@ -1,0 +1,32 @@
+.pricing-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 80%;
+  height: 60vh;
+}
+
+.pricing-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+  position: relative;
+  height: 40vh;
+  width: 30%;
+  padding: 2rem;
+  border: 1px solid black;
+  border-radius: 0.5rem;
+  padding-bottom: 5rem;
+}
+
+.pricing-form div {
+  display: flex;
+  flex-direction: column;
+}
+
+.pricing-form button {
+  position: absolute;
+  right: 1rem;
+  bottom: -1rem;
+}

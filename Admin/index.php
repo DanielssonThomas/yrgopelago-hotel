@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="../CSS/global.css">
     <link rel="stylesheet" href="../CSS/typography.css">
     <link rel="stylesheet" href="../CSS/admin-login.css">
+    <link rel="stylesheet" href="../CSS/admin-main.css">
     <title>Document</title>
 </head>
 
