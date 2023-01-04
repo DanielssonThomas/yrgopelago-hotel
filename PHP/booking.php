@@ -6,20 +6,16 @@ require(__DIR__ . '/hotelFunctions.php');
 $priceData = file_get_contents(__DIR__ . '/../pricing.json');
 $priceData = json_decode($priceData, true);
 
-$saunaPrice = $priceData['feature_prices']['sauna'];
-$tourPrice = $priceData['feature_prices']['tour'];
-$bedPrice = $priceData['feature_prices']['bed'];
-
 session_start();
 
-// $_POST['transferCode']
+
 if (isset($_POST['room'], $_POST['arrivalDate'], $_POST['departureDate'])) {
     $status = array('is_booking_available' => false, 'is_transferCode_valid' => false, 'totalCost' => 0);
 
     $room = $_POST['room'];
     $arrivalDate = $_POST['arrivalDate'];
     $departureDate = $_POST['departureDate'];
-    // $transferCode = $_POST['transferCode'];
+
 
     $featSauna = false;
     $featTour = false;
@@ -58,15 +54,6 @@ if (isset($_POST['room'], $_POST['arrivalDate'], $_POST['departureDate'])) {
     if (isBookingAvailable($room, $arrivalDate, $departureDate)) {
         $status['is_booking_available'] = true;
     }
-
-    // if (isTransferCodeValid($transferCode, $status['totalCost'])) {
-    //     $status['is_transferCode_valid'] = true;
-    // }
-
-    // if ($status['is_booking_available'] && $status['is_transferCode_valid']) {
-    //     book($room, $arrivalDate, $departureDate, $featSauna, $featTour, $featBed, $status['totalCost']);
-    //     cashInTransferCode($transferCode);
-    // }
 
     if ($status['is_booking_available']) {
         $status['bookingUID'] = book($room, $arrivalDate, $departureDate, $featSauna, $featTour, $featBed, $status['totalCost']);

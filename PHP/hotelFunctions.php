@@ -10,8 +10,11 @@ $budgetPrice = $priceData['room_prices']['budget_price'];
 $standardPrice = $priceData['room_prices']['standard_price'];
 $luxuryPrice = $priceData['room_prices']['luxury_price'];
 
+$saunaPrice = $priceData['feature_prices']['sauna'];
+$tourPrice = $priceData['feature_prices']['tour'];
+$bedPrice = $priceData['feature_prices']['bed'];
+
 use GuzzleHttp\Client;
-use Dotenv\Dotenv;
 
 $client = new Client();
 /* 
