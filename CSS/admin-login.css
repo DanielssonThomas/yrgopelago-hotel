@@ -1,0 +1,35 @@
+.admin-logout {
+  position: fixed;
+  right: 2rem;
+  top: 10rem;
+}
+
+.login-main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 60vh;
+}
+
+.login-main form {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  padding: 2rem;
+  height: 30vh;
+  width: 40vw;
+  border: 1px solid black;
+}
+
+.login-main form section {
+  display: flex;
+  flex-direction: column;
+  height: 5rem;
+}
+
+.login-btn {
+  margin-top: 4rem;
+}
