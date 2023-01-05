@@ -5,10 +5,6 @@ let calendarIndex = 0;
 const toggleCalendar = (calendarIndex) => {
   let index = 0;
 
-  //   const calendars = ['Budget', 'Standard', 'Luxury'];
-
-  //   calendarSelection.value = calendars[calendarIndex];
-
   calendarActive.forEach((e) => {
     if (e) {
       calendars[index].classList.toggle('calendar-open');

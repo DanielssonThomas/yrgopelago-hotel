@@ -3,7 +3,7 @@ require(__DIR__ . '/../PHP/hotelFunctions.php');
 
 // $_POST['transferCode']
 if (isset($_POST['room'], $_POST['arrivalDate'], $_POST['departureDate'])) {
-    $bookedTemplate = file_get_contents('../booking-confimation.json');
+    $bookedTemplate = file_get_contents('../booking-confirmation.json');
     $bookedTemplate = json_decode($bookedTemplate, true);
 
     $priceData = file_get_contents(__DIR__ . '/../pricing.json');

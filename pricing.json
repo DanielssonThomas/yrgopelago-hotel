@@ -1,12 +1,1 @@
-{
-  "room_prices": {
-    "budget_price": 1,
-    "standard_price": 2,
-    "luxury_price": 3
-  },
-  "feature_prices": {
-    "sauna": 2,
-    "tour": 3,
-    "bed": 2
-  }
-}
+{"room_prices":{"budget_price":3,"standard_price":5,"luxury_price":10},"feature_prices":{"sauna":2,"tour":4,"bed":6},"discounts":{"threeDayDiscount":2}}

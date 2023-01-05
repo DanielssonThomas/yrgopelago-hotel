@@ -41,7 +41,6 @@ bookSearchForm.addEventListener('submit', (e) => {
         bookSearchResult.textContent =
           'There was no booking for that ID, are you sure it is correct?';
         bookSearchContainer.classList.add('footer-result-container-open');
-        console.log('error');
       }
     });
 });

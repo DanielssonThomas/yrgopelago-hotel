@@ -1,4 +1,4 @@
-//Folowing is all the queries for the website
+//Following is all the queries for the website
 
 //Calendar queries
 const bookingBtns = document.querySelectorAll('.book-btn');

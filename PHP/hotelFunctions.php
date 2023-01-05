@@ -14,6 +14,8 @@ $saunaPrice = $priceData['feature_prices']['sauna'];
 $tourPrice = $priceData['feature_prices']['tour'];
 $bedPrice = $priceData['feature_prices']['bed'];
 
+$threeDayDiscount = $priceData['discounts']['threeDayDiscount'];
+
 use GuzzleHttp\Client;
 
 $client = new Client();
@@ -149,7 +151,7 @@ function isBookingAvailable(int $room, string $arrivalDate, string $departureDat
 
 function calcRoomPrice(string $roomName, string $arrivalDate, string $departureDate): float
 {
-    global $budgetPrice, $standardPrice, $luxuryPrice;
+    global $budgetPrice, $standardPrice, $luxuryPrice, $threeDayDiscount;
     $numberOfNights = 0;
     $totalPrice = 0;
     $arrivalArray = explode('-', $arrivalDate);
@@ -178,7 +180,7 @@ function calcRoomPrice(string $roomName, string $arrivalDate, string $departureD
         }
     }
     if ($dateDiff > 3) {
-        $totalPrice *= 0.7;
+        $totalPrice -= $threeDayDiscount;
     }
     return $totalPrice;
 }

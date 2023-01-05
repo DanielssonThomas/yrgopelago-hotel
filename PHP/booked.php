@@ -13,7 +13,7 @@ $sessionData = array(
     'bed' => $_SESSION['bed']
 );
 
-$bookedTemplate = file_get_contents(__DIR__ . '/../booking-confimation.json');
+$bookedTemplate = file_get_contents(__DIR__ . '/../booking-confirmation.json');
 $bookedTemplate = json_decode($bookedTemplate, true);
 
 $priceData = file_get_contents(__DIR__ . '/../pricing.json');
