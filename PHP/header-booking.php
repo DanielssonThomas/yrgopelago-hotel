@@ -3,6 +3,9 @@
 $priceData = file_get_contents(__DIR__ . '/../pricing.json');
 $priceData = json_decode($priceData, true);
 
+$confirmationJSON = file_get_contents(__DIR__ . '/../booking-confirmation.json');
+$confirmationJSON = json_decode($confirmationJSON, true);
+
 $saunaPrice = $priceData['feature_prices']['sauna'];
 $tourPrice = $priceData['feature_prices']['tour'];
 $bedPrice = $priceData['feature_prices']['bed'];
@@ -11,7 +14,7 @@ $bedPrice = $priceData['feature_prices']['bed'];
 
 <header>
     <section class="heading">
-        <h1>Hotell</h1>
+        <h1><?= $confirmationJSON['hotel'] ?></h1>
         <div class="header-exit">
             <div></div>
             <div></div>

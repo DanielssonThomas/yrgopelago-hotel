@@ -4,6 +4,8 @@ require(__DIR__ . '/../PHP/hotelFunctions.php');
 $confirmationJSON = file_get_contents(__DIR__ . '/../booking-confirmation.json');
 $confirmationJSON = json_decode($confirmationJSON, true);
 
+$islandName = $confirmationJSON['island'];
+$hotelName = $confirmationJSON['hotel'];
 $starRating = $confirmationJSON['stars'];
 $confirmationMessage = $confirmationJSON['addtional_info']['greeting'];
 
@@ -46,16 +48,35 @@ if (isset($_POST['sauna-price'], $_POST['tour-price'], $_POST['bed-price'], $_PO
     file_put_contents(__DIR__ . '/../pricing.json', json_encode($jsonData));
 }
 
-if (isset($_POST['hotel-stars'], $_POST['greeting-message'])) {
+if (isset($_POST['hotel-stars'], $_POST['greeting-message'], $_POST['island-name'], $_POST['hotel-name'])) {
     global $confirmationJSON;
     $newStarRating = $_POST['hotel-stars'];
     $newMessage = $_POST['greeting-message'];
+    $newIslandName = $_POST['island-name'];
+    $newHotelName = $_POST['hotel-name'];
     if ($newMessage == '') {
         $newMessage = $confirmationJSON['addtional_info']['greeting'];
     }
+    if ($newIslandName == '') {
+        $newIslandName = $confirmationJSON['island'];
+    }
+    if ($newHotelName == '') {
+        $newHotelName = $confirmationJSON['hotel'];
+    }
+
+    $confirmationJSON['island'] = $newIslandName;
+    $confirmationJSON['hotel'] = $newHotelName;
     $confirmationJSON['stars'] = $newStarRating;
     $confirmationJSON['addtional_info']['greeting'] = $newMessage;
     file_put_contents(__DIR__ . '/../booking-confirmation.json', json_encode($confirmationJSON));
+}
+
+if (isset($_POST['delete-booking'])) {
+    $deleteID = $_POST['delete-booking'];
+
+    $deleteQuary = $dbh->prepare('DELETE FROM bookings WHERE id = :id');
+    $deleteQuary->bindParam(':id', $deleteID, PDO::PARAM_INT);
+    $deleteQuary->execute();
 }
 ?>
 
@@ -107,12 +128,21 @@ if (isset($_POST['hotel-stars'], $_POST['greeting-message'])) {
 
         <form action="" method="POST" class="pricing-form">
             <div>
+                <label for="island-name">Enter new island name:</label>
+                <input type="text" name="island-name" placeholder="<?= $islandName ?>">
+            </div>
+            <div>
+                <label for="hotel-name">nter new hotel name:</label>
+                <input type="text" name="hotel-name" placeholder="<?= $hotelName ?>">
+            </div>
+
+            <div>
                 <label for="hotel-stars">Enter new hotel star value:</label>
                 <input type="number" name="hotel-stars" min=0 max=5 value=<?= $starRating ?>>
             </div>
             <div>
-                <label for="greeting-message">Current greeting message: <br> <?= $confirmationMessage ?></label>
-                <input type="text" name="greeting-message">
+                <label for="greeting-message">Enter new greeting:</label>
+                <input type="text" name="greeting-message" placeholder="<?= $confirmationMessage ?>">
             </div>
             <button type="submit">Add changes</button>
         </form>
@@ -146,6 +176,14 @@ if (isset($_POST['hotel-stars'], $_POST['greeting-message'])) {
             <?php endforeach ?>
 
         </table>
+
+        <p>Total bookings:
+            <?php
+            $stmt = $dbh->query('SELECT COUNT(id) FROM bookings');
+            $response = $stmt->fetch(PDO::FETCH_NUM);
+            echo $response[0];
+            ?>
+        </p>
 
         <form action="" method="POST" class="delete-booking-form">
             <label for="delete-booking">Delete booking with ID:</label>

@@ -38,6 +38,10 @@
   width: 100%;
 }
 
+.bookings-container p {
+  padding: 1rem 2rem;
+}
+
 .bookings-container table {
   display: flex;
   justify-content: center;

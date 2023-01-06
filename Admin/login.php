@@ -32,4 +32,9 @@ if (isset($_POST['user-name'], $_POST['password'])) {
             <button type="submit">Enter</button>
         </section>
     </form>
+    <picture>
+        <source srcset="Images/luxury-large.jpg" media="(min-width: 768px)">
+        <source srcset="Images/luxury-medium.jpg" media="(min-width: 400px">
+        <img src="Images/luxury-small.jpg" alt="luxury hotel room with a nice and tidy area!">
+    </picture>
 </main>

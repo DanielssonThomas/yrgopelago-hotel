@@ -1,4 +1,6 @@
 <?php
+$confirmationJSON = file_get_contents(__DIR__ . '/../booking-confirmation.json');
+$confirmationJSON = json_decode($confirmationJSON, true);
 ?>
 
 <!DOCTYPE html>
@@ -19,7 +21,7 @@
 <body>
     <header class="admin-header">
         <section class="heading">
-            <h1>Hotell</h1>
+            <h1><?= $confirmationJSON['hotel'] ?></h1>
             <div class="header-exit">
                 <div></div>
                 <div></div>

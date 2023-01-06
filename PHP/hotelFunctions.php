@@ -128,24 +128,18 @@ function seperateToDayValue(string $arrivalDate, string $departureDate): array
 function isBookingAvailable(int $room, string $arrivalDate, string $departureDate): bool
 {
     global $dbh;
-    $stmt = $dbh->prepare('SELECT arrival_date, departure_date FROM bookings WHERE room_id = :id');
-    $stmt->bindParam(':id', $room, PDO::PARAM_INT);
-    $stmt->execute();
-    $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    $isBooked = false;
-    foreach ($data as $dates) {
 
-        foreach (seperateToDayValue($dates['arrival_date'], $dates['departure_date']) as $bookedDay) {
-            foreach (seperateToDayValue($arrivalDate, $departureDate) as $bookingDay) {
-                if ($bookedDay == $bookingDay) {
-                    $isBooked = true;
-                    return false;
-                }
-            }
-        }
-    }
-    if (!$isBooked) {
+    $stmt = $dbh->prepare('SELECT * FROM bookings WHERE room_id = :room_id AND' . '(' . 'arrival_date BETWEEN :arrival AND :departure OR departure_date BETWEEN :arrival AND :departure' . ')');
+    $stmt->bindParam(':room_id', $room, PDO::PARAM_INT);
+    $stmt->bindParam(':arrival', $arrivalDate, PDO::PARAM_STR);
+    $stmt->bindParam(':departure', $departureDate, PDO::PARAM_STR);
+    $stmt->execute();
+
+    $response = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    if (count($response) === 0) {
         return true;
+    } else {
+        return false;
     }
 }
 
