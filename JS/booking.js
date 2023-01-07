@@ -23,7 +23,7 @@ bookingForm.addEventListener('submit', (e) => {
     .then((response) => {
       if (!response['is_booking_available']) {
         createErrorMessage(
-          'That date is unfortunantly booked, please try a different date!'
+          'That date is unfortunantly booked or your input was invalid, please try a different date!'
         );
       } else if (!response['is_transferCode_valid']) {
         createErrorMessage(

@@ -107,37 +107,36 @@ function isTransferCodeValid(string $transferCode, float $cost): bool
     }
 }
 
-function seperateToDayValue(string $arrivalDate, string $departureDate): array
+function isValidDate(string $arrivalDate, string $departureDate): bool
 {
-    $daysInbetween = [];
-
     $arrivalDateArray = explode('-', $arrivalDate);
     $departureDateArray = explode('-', $departureDate);
 
-    $arrivalDay = $arrivalDateArray[2] - 1;
+    $arrivalDay = $arrivalDateArray[2];
     $departureDay = $departureDateArray[2];
-    $saveDate = $arrivalDay;
-
-    while ($saveDate != $departureDay) {
-        array_push($daysInbetween, $saveDate);
-        $saveDate++;
+    if ($arrivalDay > $departureDay || $arrivalDay === '' || $departureDay === '') {
+        return false;
+    } else {
+        return true;
     }
-    return $daysInbetween;
 }
 
 function isBookingAvailable(int $room, string $arrivalDate, string $departureDate): bool
 {
     global $dbh;
+    if (isValidDate($arrivalDate, $departureDate)) {
+        $stmt = $dbh->prepare('SELECT * FROM bookings WHERE room_id = :room_id AND' . '(' . 'arrival_date BETWEEN :arrival AND :departure OR departure_date BETWEEN :arrival AND :departure' . ')');
+        $stmt->bindParam(':room_id', $room, PDO::PARAM_INT);
+        $stmt->bindParam(':arrival', $arrivalDate, PDO::PARAM_STR);
+        $stmt->bindParam(':departure', $departureDate, PDO::PARAM_STR);
+        $stmt->execute();
 
-    $stmt = $dbh->prepare('SELECT * FROM bookings WHERE room_id = :room_id AND' . '(' . 'arrival_date BETWEEN :arrival AND :departure OR departure_date BETWEEN :arrival AND :departure' . ')');
-    $stmt->bindParam(':room_id', $room, PDO::PARAM_INT);
-    $stmt->bindParam(':arrival', $arrivalDate, PDO::PARAM_STR);
-    $stmt->bindParam(':departure', $departureDate, PDO::PARAM_STR);
-    $stmt->execute();
-
-    $response = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    if (count($response) === 0) {
-        return true;
+        $response = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if (count($response) === 0) {
+            return true;
+        } else {
+            return false;
+        }
     } else {
         return false;
     }
@@ -145,38 +144,42 @@ function isBookingAvailable(int $room, string $arrivalDate, string $departureDat
 
 function calcRoomPrice(string $roomName, string $arrivalDate, string $departureDate): float
 {
-    global $budgetPrice, $standardPrice, $luxuryPrice, $threeDayDiscount;
-    $numberOfNights = 0;
-    $totalPrice = 0;
-    $arrivalArray = explode('-', $arrivalDate);
-    $departureArray = explode('-', $departureDate);
-    $arrivalDay = (int)$arrivalArray[2];
-    $departureDay = (int)$departureArray[2];
-    $dateDiff = $departureDay - $arrivalDay;
+    if (isValidDate($arrivalDate, $departureDate)) {
+        global $budgetPrice, $standardPrice, $luxuryPrice, $threeDayDiscount;
+        $numberOfNights = 0;
+        $totalPrice = 0;
+        $arrivalArray = explode('-', $arrivalDate);
+        $departureArray = explode('-', $departureDate);
+        $arrivalDay = (int)$arrivalArray[2];
+        $departureDay = (int)$departureArray[2];
+        $dateDiff = $departureDay - $arrivalDay;
 
-    for ($i = 0; $i < $dateDiff; $i++) {
-        $numberOfNights++;
-    }
-
-    $numberOfNights = round($numberOfNights / 2);
-
-    for ($i = 0; $i <= $numberOfNights; $i++) {
-        if ($roomName === 'budget') {
-            $totalPrice += $budgetPrice;
+        for ($i = 0; $i < $dateDiff; $i++) {
+            $numberOfNights++;
         }
 
-        if ($roomName === 'standard') {
-            $totalPrice += $standardPrice;
-        }
+        $numberOfNights = round($numberOfNights / 2);
 
-        if ($roomName === 'luxury') {
-            $totalPrice += $luxuryPrice;
+        for ($i = 0; $i <= $numberOfNights; $i++) {
+            if ($roomName === 'budget') {
+                $totalPrice += $budgetPrice;
+            }
+
+            if ($roomName === 'standard') {
+                $totalPrice += $standardPrice;
+            }
+
+            if ($roomName === 'luxury') {
+                $totalPrice += $luxuryPrice;
+            }
         }
+        if ($dateDiff > 3) {
+            $totalPrice -= $threeDayDiscount;
+        }
+        return $totalPrice;
+    } else {
+        return 0;
     }
-    if ($dateDiff > 3) {
-        $totalPrice -= $threeDayDiscount;
-    }
-    return $totalPrice;
 }
 
 function book(int $room, string $arrivalDate, string $departureDate, bool $featSauna, bool $featTour, bool $featBed, float $totalCost): string

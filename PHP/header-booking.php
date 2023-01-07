@@ -10,6 +10,7 @@ $saunaPrice = $priceData['feature_prices']['sauna'];
 $tourPrice = $priceData['feature_prices']['tour'];
 $bedPrice = $priceData['feature_prices']['bed'];
 
+$discount = $priceData['discounts']['threeDayDiscount'];
 ?>
 
 <header>
@@ -25,6 +26,7 @@ $bedPrice = $priceData['feature_prices']['bed'];
             <div class="booking-err-field"></div>
             <aside class="booking-form">
                 <h2>Fill out the following booking form</h2>
+                <p>There is a discount of <?= $discount ?>€ for bookings of 3 days or more!</p>
                 <form method="POST" class="book-form">
                     <section class="book-form-room">
                         <label for="rooms">Select room:</label>
@@ -36,9 +38,9 @@ $bedPrice = $priceData['feature_prices']['bed'];
                     </section>
                     <section class="book-form-date">
                         <label for="arrivalDate">Select the day you will be arriving:</label>
-                        <input type="date" name="arrivalDate" min="2023-01-01" max="2023-01-31" require>
+                        <input type="date" name="arrivalDate" min="2023-01-01" max="2023-01-31">
                         <label for="departureDate">Select the day you will departure:</label>
-                        <input type="date" name="departureDate" min="2023-01-01" max="2023-01-31" require>
+                        <input type="date" name="departureDate" min="2023-01-01" max="2023-01-31">
                     </section>
 
                     <section class="book-form-transferCode">
@@ -62,6 +64,7 @@ $bedPrice = $priceData['feature_prices']['bed'];
                             <label for="feat-room">Add an extra bed to your room <?= $bedPrice ?>€</label>
                         </div>
                     </section>
+                    <p>Total current cost:</p>
                     <button type="submit">SUBMIT</button>
                 </form>
             </aside>
