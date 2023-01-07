@@ -48,6 +48,10 @@ bedSelectInput.addEventListener('change', async () => {
 });
 
 (arrivalInput, departureInput).addEventListener('change', async () => {
+  saunaSelectInput.checked = false;
+  tourSelectInput.checked = false;
+  bedSelectInput.checked = false;
+  displayNumber -= displayNumber;
   arrivalArray = arrivalInput.value.toString();
   arrivalArray = arrivalArray.split('-');
   arrivalDate = parseInt(arrivalArray[2]);
