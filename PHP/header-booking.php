@@ -36,9 +36,9 @@ $bedPrice = $priceData['feature_prices']['bed'];
                     </section>
                     <section class="book-form-date">
                         <label for="arrivalDate">Select the day you will be arriving:</label>
-                        <input type="date" name="arrivalDate" min="2023-01-01" max="2023-01-31">
+                        <input type="date" name="arrivalDate" min="2023-01-01" max="2023-01-31" require>
                         <label for="departureDate">Select the day you will departure:</label>
-                        <input type="date" name="departureDate" min="2023-01-01" max="2023-01-31">
+                        <input type="date" name="departureDate" min="2023-01-01" max="2023-01-31" require>
                     </section>
 
                     <section class="book-form-transferCode">

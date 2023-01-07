@@ -1,4 +1,5 @@
 <?php
+session_start();
 $confirmationJSON = file_get_contents(__DIR__ . '/../booking-confirmation.json');
 $confirmationJSON = json_decode($confirmationJSON, true);
 ?>
@@ -15,7 +16,7 @@ $confirmationJSON = json_decode($confirmationJSON, true);
     <link rel="stylesheet" href="../CSS/typography.css">
     <link rel="stylesheet" href="../CSS/admin-login.css">
     <link rel="stylesheet" href="../CSS/admin-main.css">
-    <title>Document</title>
+    <title>Admin page</title>
 </head>
 
 <body>
@@ -29,8 +30,6 @@ $confirmationJSON = json_decode($confirmationJSON, true);
         </section>
     </header>
     <?php
-    session_start();
-    // unset($_SESSION['user-auth']);
     if (!isset($_SESSION['user-auth'])) {
         require(__DIR__ . '/login.php');
     } else {

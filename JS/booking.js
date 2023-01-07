@@ -15,7 +15,7 @@ bookingForm.addEventListener('submit', (e) => {
     }, 10000);
   };
 
-  const data = fetch('PHP/booking.php', {
+  fetch('PHP/booking.php', {
     method: 'POST',
     body: formData,
   })

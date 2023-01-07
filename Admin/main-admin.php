@@ -25,6 +25,7 @@ if (isset($_POST['budget-price'], $_POST['standard-price'], $_POST['luxury-price
     $jsonData['room_prices']['standard_price'] = $newStandardPrice;
     $jsonData['room_prices']['luxury_price'] = $newLuxuryPrice;
     file_put_contents(__DIR__ . '/../pricing.json', json_encode($jsonData));
+    header('Location: /Admin');
 }
 
 if (isset($_POST['sauna-price'], $_POST['tour-price'], $_POST['bed-price'], $_POST['discount-days'])) {
@@ -46,6 +47,7 @@ if (isset($_POST['sauna-price'], $_POST['tour-price'], $_POST['bed-price'], $_PO
     $jsonData['feature_prices']['bed'] = $newBedPrice;
     $jsonData['discounts']['threeDayDiscount'] = $newDiscount;
     file_put_contents(__DIR__ . '/../pricing.json', json_encode($jsonData));
+    header('Location: /Admin');
 }
 
 if (isset($_POST['hotel-stars'], $_POST['greeting-message'], $_POST['island-name'], $_POST['hotel-name'])) {
@@ -54,12 +56,15 @@ if (isset($_POST['hotel-stars'], $_POST['greeting-message'], $_POST['island-name
     $newMessage = $_POST['greeting-message'];
     $newIslandName = $_POST['island-name'];
     $newHotelName = $_POST['hotel-name'];
+
     if ($newMessage == '') {
         $newMessage = $confirmationJSON['addtional_info']['greeting'];
     }
+
     if ($newIslandName == '') {
         $newIslandName = $confirmationJSON['island'];
     }
+
     if ($newHotelName == '') {
         $newHotelName = $confirmationJSON['hotel'];
     }
@@ -69,6 +74,7 @@ if (isset($_POST['hotel-stars'], $_POST['greeting-message'], $_POST['island-name
     $confirmationJSON['stars'] = $newStarRating;
     $confirmationJSON['addtional_info']['greeting'] = $newMessage;
     file_put_contents(__DIR__ . '/../booking-confirmation.json', json_encode($confirmationJSON));
+    header('Location: /Admin');
 }
 
 if (isset($_POST['delete-booking'])) {
@@ -82,7 +88,7 @@ if (isset($_POST['delete-booking'])) {
 
 <main>
     <section class="admin-logout">
-        <a href="Admin/logout.php">
+        <a href="./logout.php">
             <button>Logout</button>
         </a>
     </section>
@@ -132,7 +138,7 @@ if (isset($_POST['delete-booking'])) {
                 <input type="text" name="island-name" placeholder="<?= $islandName ?>">
             </div>
             <div>
-                <label for="hotel-name">nter new hotel name:</label>
+                <label for="hotel-name">Enter new hotel name:</label>
                 <input type="text" name="hotel-name" placeholder="<?= $hotelName ?>">
             </div>
 
