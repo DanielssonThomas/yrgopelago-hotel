@@ -5,7 +5,6 @@ footer {
   flex-direction: column;
   position: relative;
   height: 30rem;
-  border-top: 1px solid black;
 }
 
 .footer-form {
@@ -27,6 +26,18 @@ footer {
 .footer-form input {
   width: 13rem;
   height: 2rem;
+}
+
+.star-display {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top: 1px solid black;
+  padding-top: 2rem;
+}
+
+.star-display img {
+  width: 2rem;
 }
 
 .footer-result-container {
