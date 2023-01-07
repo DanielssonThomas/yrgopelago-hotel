@@ -28,16 +28,6 @@ const toggleCalendar = (calendarIndex) => {
   }
 };
 
-calendarSelection.addEventListener('change', () => {
-  if (calendarSelection.value === 'budget') {
-    toggleCalendar(1);
-  } else if (calendarSelection.value === 'standard') {
-    toggleCalendar(2);
-  } else if (calendarSelection.value === 'luxury') {
-    toggleCalendar(3);
-  }
-});
-
 headerExit.addEventListener('click', () => {
   headerExit.classList.toggle('header-exit-open');
   bookingSection.classList.toggle('booking-container-open');

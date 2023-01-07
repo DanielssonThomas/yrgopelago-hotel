@@ -17,9 +17,9 @@ $luxuryPrice = $priceData['room_prices']['luxury_price'];
             </picture>
         </div>
         <section class="budget-info-section">
-            <h2>Budget - Room - Price <?= $budgetPrice ?>€/Night</h2>
+            <h2>Budget - Room - Price <?= $budgetPrice ?>€/Day</h2>
             <q>Perfect to get a room that gets the job done</q>
-            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatem deserunt quibusdam sint ducimus, quas ab ea veritatis nulla harum neque voluptates et, mollitia maxime nobis repellat nesciunt magni voluptas inventore!</p>
+            <p>Are you looking for a room that gets the job done, even though the price is outrageously low? You found the one! This room comes with no walls, no roof and a nice bed. And as a wonderful bonus you get an extraordinary view in the morning!</p>
             <button class="book-btn">Book now!</button>
         </section>
         <!-- this is standard room -->
@@ -31,9 +31,9 @@ $luxuryPrice = $priceData['room_prices']['luxury_price'];
             </picture>
         </div>
         <section class="standard-info-section">
-            <h2>Standard - Room - Price <?= $standardPrice ?>€/Night</h2>
+            <h2>Standard - Room - Price <?= $standardPrice ?>€/Day</h2>
             <q>The average price for a solid room</q>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Provident, est. Deserunt quo dignissimos minus nihil deleniti odio, reiciendis aspernatur dolor aliquam velit vitae fuga? Reprehenderit id a laborum nobis sed?</p>
+            <p>Looking for an affordable room that gives you the essentials, walls, roofs, floors, and a nice bed. A truly remarkable step-up from the budget room!</p>
             <button class="book-btn">Book now!</button>
         </section>
 
@@ -45,9 +45,9 @@ $luxuryPrice = $priceData['room_prices']['luxury_price'];
             </picture>
         </div>
         <section class="luxury-info-section">
-            <h2>Luxury - Room - Price <?= $luxuryPrice ?>€/Night</h2>
+            <h2>Luxury - Room - Price <?= $luxuryPrice ?>€/Day</h2>
             <q>The most glorious room of all! The one that steals the show! and your wallet...</q>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A repellendus cupiditate ipsa, libero repellat corporis consectetur, error facilis, quis nostrum totam. Error laborum nisi est eius tempora minus harum mollitia?</p>
+            <p>Now. This is the one. To empty your wallets and live happily. You get a wonderful home with sofas and multiple floors, access to true luxury and comfortability.</p>
             <button class="book-btn">Book now!</button>
         </section>
 

@@ -10,6 +10,12 @@ const calendarSelection = document.querySelector('.room-select');
 //Booking queries
 const bookingForm = document.querySelector('.book-form');
 const bookingErrField = document.querySelector('.booking-err-field');
+const arrivalInput = document.querySelector('.arrival-select');
+const departureInput = document.querySelector('.departure-select');
+const saunaSelectInput = document.querySelector('.feat-select-sauna');
+const tourSelectInput = document.querySelector('.feat-select-tour');
+const bedSelectInput = document.querySelector('.feat-select-bed');
+const bookingCostDisplay = document.querySelector('.booking-cost-display');
 
 //Footer queries
 const bookSearchForm = document.querySelector('.footer-form');

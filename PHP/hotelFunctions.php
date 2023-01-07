@@ -146,7 +146,7 @@ function calcRoomPrice(string $roomName, string $arrivalDate, string $departureD
 {
     if (isValidDate($arrivalDate, $departureDate)) {
         global $budgetPrice, $standardPrice, $luxuryPrice, $threeDayDiscount;
-        $numberOfNights = 0;
+        $numberOfDays = 0;
         $totalPrice = 0;
         $arrivalArray = explode('-', $arrivalDate);
         $departureArray = explode('-', $departureDate);
@@ -155,12 +155,12 @@ function calcRoomPrice(string $roomName, string $arrivalDate, string $departureD
         $dateDiff = $departureDay - $arrivalDay;
 
         for ($i = 0; $i < $dateDiff; $i++) {
-            $numberOfNights++;
+            $numberOfDays++;
         }
 
-        $numberOfNights = round($numberOfNights / 2);
+        // $numberOfDays = round($numberOfDays / 2);
 
-        for ($i = 0; $i <= $numberOfNights; $i++) {
+        for ($i = 0; $i <= $numberOfDays; $i++) {
             if ($roomName === 'budget') {
                 $totalPrice += $budgetPrice;
             }
@@ -173,7 +173,7 @@ function calcRoomPrice(string $roomName, string $arrivalDate, string $departureD
                 $totalPrice += $luxuryPrice;
             }
         }
-        if ($dateDiff > 3) {
+        if ($dateDiff >= 3) {
             $totalPrice -= $threeDayDiscount;
         }
         return $totalPrice;

@@ -1,3 +1,77 @@
+displayNumber = 0;
+
+calendarSelection.addEventListener('change', () => {
+  if (calendarSelection.value === 'budget') {
+    toggleCalendar(1);
+  } else if (calendarSelection.value === 'standard') {
+    toggleCalendar(2);
+  } else if (calendarSelection.value === 'luxury') {
+    toggleCalendar(3);
+  }
+});
+
+const fetchPrices = async () => {
+  const res = await fetch('../pricing.json');
+  const data = await res.json();
+  return data;
+};
+
+saunaSelectInput.addEventListener('change', async () => {
+  data = await fetchPrices();
+  if (saunaSelectInput.checked) {
+    displayNumber += data['feature_prices']['sauna'];
+  } else {
+    displayNumber -= data['feature_prices']['sauna'];
+  }
+
+  bookingCostDisplay.textContent = `Total current cost: ${displayNumber}`;
+});
+
+tourSelectInput.addEventListener('change', async () => {
+  data = await fetchPrices();
+  if (tourSelectInput.checked) {
+    displayNumber += data['feature_prices']['tour'];
+  } else {
+    displayNumber -= data['feature_prices']['tour'];
+  }
+  bookingCostDisplay.textContent = `Total current cost: ${displayNumber}`;
+});
+
+bedSelectInput.addEventListener('change', async () => {
+  data = await fetchPrices();
+  if (bedSelectInput.checked) {
+    displayNumber += data['feature_prices']['bed'];
+  } else {
+    displayNumber -= data['feature_prices']['bed'];
+  }
+  bookingCostDisplay.textContent = `Total current cost: ${displayNumber}`;
+});
+
+(arrivalInput, departureInput).addEventListener('change', async () => {
+  arrivalArray = arrivalInput.value.toString();
+  arrivalArray = arrivalArray.split('-');
+  arrivalDate = parseInt(arrivalArray[2]);
+
+  departureArray = departureInput.value.toString();
+  departureArray = departureArray.split('-');
+  departureDate = parseInt(departureArray[2]);
+
+  totalDays = departureDate - arrivalDate;
+
+  priceData = await fetchPrices();
+
+  for (let i = 0; i <= totalDays; i++) {
+    displayNumber +=
+      priceData['room_prices'][`${calendarSelection.value}_price`];
+  }
+
+  if (totalDays >= 3) {
+    displayNumber -= priceData['discounts']['threeDayDiscount'];
+  }
+
+  bookingCostDisplay.textContent = `Total current cost: ${displayNumber}`;
+});
+
 bookingForm.addEventListener('submit', (e) => {
   e.preventDefault();
 
