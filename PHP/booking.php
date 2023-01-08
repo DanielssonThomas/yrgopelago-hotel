@@ -1,21 +1,24 @@
 <?php
 
 declare(strict_types=1);
+session_start();
 require(__DIR__ . '/hotelFunctions.php');
 
 $priceData = file_get_contents(__DIR__ . '/../pricing.json');
 $priceData = json_decode($priceData, true);
 
-session_start();
+$saunaPrice = $priceData['feature_prices']['sauna'];
+$tourPrice = $priceData['feature_prices']['tour'];
+$bedPrice = $priceData['feature_prices']['bed'];
 
 
-if (isset($_POST['room'], $_POST['arrivalDate'], $_POST['departureDate'])) {
+if (isset($_POST['room'], $_POST['arrivalDate'], $_POST['departureDate'], $_POST['transferCode'])) {
     $status = array('is_booking_available' => false, 'is_transferCode_valid' => false, 'totalCost' => 0);
 
     $room = $_POST['room'];
     $arrivalDate = $_POST['arrivalDate'];
     $departureDate = $_POST['departureDate'];
-
+    $transferCode = $_POST['transferCode'];
 
     $featSauna = false;
     $featTour = false;
@@ -55,9 +58,12 @@ if (isset($_POST['room'], $_POST['arrivalDate'], $_POST['departureDate'])) {
         $status['is_booking_available'] = true;
     }
 
-    if ($status['is_booking_available']) {
-        $status['bookingUID'] = book($room, $arrivalDate, $departureDate, $featSauna, $featTour, $featBed, $status['totalCost']);
+    if (isTransferCodeValid($transferCode, $status['totalCost'])) {
         $status['is_transferCode_valid'] = true;
+    }
+
+    if ($status['is_booking_available'] && $status['is_transferCode_valid']) {
+        $status['bookingUID'] = book($room, $arrivalDate, $departureDate, $featSauna, $featTour, $featBed, $status['totalCost']);
         $_SESSION['arrivalDate'] = $arrivalDate;
         $_SESSION['departureDate'] = $departureDate;
         $_SESSION['bookingUID'] = $status['bookingUID'];
@@ -66,6 +72,7 @@ if (isset($_POST['room'], $_POST['arrivalDate'], $_POST['departureDate'])) {
         $_SESSION['tour'] = $featTour;
         $_SESSION['bed'] = $featBed;
         $_SESSION['totalCost'] = $status['totalCost'];
+        cashInTransferCode($transferCode);
     }
 
     header('Content-type: application/json');

@@ -1,1 +1,10 @@
-{"island":"Nomi island","hotel":"Nomis","arrival_date":"","departure_date":"","total_cost":"","stars":"5","features":[],"addtional_info":{"greeting":"Thanks for choosing Nomis!"}}
+{
+  "island": "Nomi island",
+  "hotel": "Nomis Hotel",
+  "arrival_date": "",
+  "departure_date": "",
+  "total_cost": "",
+  "stars": "5",
+  "features": [],
+  "addtional_info": { "greeting": "Thanks for choosing Nomis!" }
+}
