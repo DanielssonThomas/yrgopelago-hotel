@@ -88,7 +88,7 @@ if (isset($_POST['delete-booking'])) {
 
 <main>
     <section class="admin-logout">
-        <a href="./logout.php">
+        <a href="Admin/logout.php">
             <button>Logout</button>
         </a>
     </section>

@@ -18,8 +18,8 @@ $luxuryPrice = $priceData['room_prices']['luxury_price'];
         </div>
         <section class="budget-info-section">
             <h2>Budget - Room - Price <?= $budgetPrice ?>€/Day</h2>
-            <q>Perfect to get a room that gets the job done</q>
-            <p>Are you looking for a room that gets the job done, even though the price is outrageously low? You found the one! This room comes with no walls, no roof and a nice bed. And as a wonderful bonus you get an extraordinary view in the morning!</p>
+            <q>The perfect place for good sleep</q>
+            <p>Are you looking for a room that gives you the good night sleep you dream of? even though the price is outrageously low? You found the one! This room comes with no walls, no roof and a nice bed. And as a wonderful bonus you get an extraordinary view in the morning!</p>
             <button class="book-btn">Book now!</button>
         </section>
         <!-- this is standard room -->
