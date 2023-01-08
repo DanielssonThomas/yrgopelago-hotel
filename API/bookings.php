@@ -1,8 +1,9 @@
 <?php
+
+declare(strict_types=1);
 require(__DIR__ . '/../PHP/hotelFunctions.php');
 
-// $_POST['transferCode']
-if (isset($_POST['room'], $_POST['arrivalDate'], $_POST['departureDate'])) {
+if (isset($_POST['room'], $_POST['arrivalDate'], $_POST['departureDate'], $_POST['transferCode'])) {
     $bookedTemplate = file_get_contents('../booking-confirmation.json');
     $bookedTemplate = json_decode($bookedTemplate, true);
 
@@ -17,15 +18,17 @@ if (isset($_POST['room'], $_POST['arrivalDate'], $_POST['departureDate'])) {
     $bookingSuccessful = false;
     $totalCost = 0;
     $room = htmlspecialchars($_POST['room']);
-    $arrivalDate = htmlspecialchars($_POST['arrivalDate']);
-    $departureDate = htmlspecialchars($_POST['departureDate']);
-    // $transferCode = htmlspecialchars($_POST['transferCode']);
+    $arrivalDate = $_POST['arrivalDate'];
+    $departureDate = $_POST['departureDate'];
+    $transferCode = $_POST['transferCode'];
 
     $bookingUID = '';
 
     $featSauna = false;
     $featTour = false;
     $featBed = false;
+
+    $successfulBooking = false;
 
     $totalCost = calcRoomPrice($room, $arrivalDate, $departureDate);
 
@@ -65,28 +68,24 @@ if (isset($_POST['room'], $_POST['arrivalDate'], $_POST['departureDate'])) {
     if (isBookingAvailable($room, $arrivalDate, $departureDate)) {
         $statusResponse['is_booking_available'] = 'yes';
     } else {
-        $statusResponse['is_booking_available'] = 'no, try a different date';
+        $statusResponse['is_booking_available'] = 'date is taken or incorret, try a different date';
     }
 
-    // if (isTransferCodeValid($transferCode, $statusResponse['totalCost'])) {
-    //     $statusResponse['is_transferCode_valid'] = true;
-    // }
-
-    // if ($statusResponse['is_booking_available'] && $statusResponse['is_transferCode_valid']) {
-    //     book($room, $arrivalDate, $departureDate, $featSauna, $featTour, $featBed, $statusResponse['totalCost']);
-    //     cashInTransferCode($transferCode);
-    // }
-
-    if ($statusResponse['is_booking_available'] = 'yes') {
-        $bookingUID = book($room, $arrivalDate, $departureDate, $featSauna, $featTour, $featBed, $totalCost);
-        $bookingSuccessful = true;
+    if (isTransferCodeValid($transferCode, $totalCost)) {
         $statusResponse['is_transferCode_valid'] = 'yes';
     } else {
-        $statusResponse['is_transferCode_valid'] = 'no, try a different transferCode';
+        $statusResponse['is_transferCode_valid'] = 'transfercode was insufficient or incorrect, try a different code';
     }
 
+    if ($statusResponse['is_booking_available'] === 'yes' && $statusResponse['is_transferCode_valid'] === 'yes') {
+        $successfulBooking = true;
+    }
     header('Content-type: application/json');
-    if (false) {
+    if ($successfulBooking) {
+
+        $bookingUID = book($room, $arrivalDate, $departureDate, $featSauna, $featTour, $featBed, $totalCost);
+        cashInTransferCode($transferCode);
+
         $bookedTemplate['arrival_date'] = $arrivalDate;
         $bookedTemplate['departure_date'] = $departureDate;
         $bookedTemplate['total_cost'] = $totalCost;

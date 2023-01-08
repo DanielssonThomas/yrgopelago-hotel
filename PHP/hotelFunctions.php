@@ -114,7 +114,7 @@ function isValidDate(string $arrivalDate, string $departureDate): bool
 
     $arrivalDay = $arrivalDateArray[2];
     $departureDay = $departureDateArray[2];
-    if ($arrivalDay > $departureDay || $arrivalDay === '' || $departureDay === '') {
+    if ($arrivalDay > $departureDay) {
         return false;
     } else {
         return true;
@@ -158,8 +158,6 @@ function calcRoomPrice(string $roomName, string $arrivalDate, string $departureD
             $numberOfDays++;
         }
 
-        // $numberOfDays = round($numberOfDays / 2);
-
         for ($i = 0; $i <= $numberOfDays; $i++) {
             if ($roomName === 'budget') {
                 $totalPrice += $budgetPrice;
@@ -174,7 +172,7 @@ function calcRoomPrice(string $roomName, string $arrivalDate, string $departureD
             }
         }
         if ($dateDiff >= 3) {
-            $totalPrice -= $threeDayDiscount;
+            $totalPrice = $totalPrice - $threeDayDiscount;
         }
         return $totalPrice;
     } else {
