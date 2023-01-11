@@ -171,7 +171,7 @@ function calcRoomPrice(string $roomName, string $arrivalDate, string $departureD
                 $totalPrice += $luxuryPrice;
             }
         }
-        if ($dateDiff >= 3) {
+        if ($dateDiff >= 2) {
             $totalPrice = $totalPrice - $threeDayDiscount;
         }
         return $totalPrice;

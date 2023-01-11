@@ -8,7 +8,7 @@ $islandName = $confirmationJSON['island'];
 $hotelName = $confirmationJSON['hotel'];
 $starRating = $confirmationJSON['stars'];
 $confirmationMessage = $confirmationJSON['addtional_info']['greeting'];
-
+// If room pricing form is posted the prices are saved within newVariables and the pricing.json is fetched. 
 if (isset($_POST['budget-price'], $_POST['standard-price'], $_POST['luxury-price'])) {
     $newBudgetPrice = (int)$_POST['budget-price'];
     $newStandardPrice = (int)$_POST['standard-price'];
@@ -17,6 +17,7 @@ if (isset($_POST['budget-price'], $_POST['standard-price'], $_POST['luxury-price
     $jsonData = file_get_contents(__DIR__ . '/../pricing.json');
     $jsonData = json_decode($jsonData, true);
 
+    //If the new pricing is null the fetched from pricing.json is set to the newValues. So there is no reset on pricing
     $newBudgetPrice = null ? $budgetPrice : $newBudgetPrice;
     $newStandardPrice = null ? $standardPrice : $newStandardPrice;
     $newLuxuryPrice = null ? $luxuryPrice : $newLuxuryPrice;
@@ -28,6 +29,7 @@ if (isset($_POST['budget-price'], $_POST['standard-price'], $_POST['luxury-price
     header('Location: /Admin');
 }
 
+// If feature form is posted the prices are fetched and turned to newVariables and the pricing.json is fetched.
 if (isset($_POST['sauna-price'], $_POST['tour-price'], $_POST['bed-price'], $_POST['discount-days'])) {
     $newSaunaPrice = (int)$_POST['sauna-price'];
     $newTourPrice = (int)$_POST['tour-price'];
@@ -36,7 +38,7 @@ if (isset($_POST['sauna-price'], $_POST['tour-price'], $_POST['bed-price'], $_PO
 
     $jsonData = file_get_contents(__DIR__ . '/../pricing.json');
     $jsonData = json_decode($jsonData, true);
-
+    //If the value of the new post is null, it is instead set to the old price. So there is no reset on pricing.
     $newSaunaPrice = null ? $saunaPrice : $newSaunaPrice;
     $newTourPrice = null ? $tourPrice : $newTourPrice;
     $newBedPrice = null ? $bedPrice : $newBedPrice;
@@ -50,6 +52,7 @@ if (isset($_POST['sauna-price'], $_POST['tour-price'], $_POST['bed-price'], $_PO
     header('Location: /Admin');
 }
 
+//If the booking confirmation form is posted the values are saved in new variables before they are placed in the json file.
 if (isset($_POST['hotel-stars'], $_POST['greeting-message'], $_POST['island-name'], $_POST['hotel-name'])) {
     global $confirmationJSON;
     $newStarRating = $_POST['hotel-stars'];
@@ -57,6 +60,7 @@ if (isset($_POST['hotel-stars'], $_POST['greeting-message'], $_POST['island-name
     $newIslandName = $_POST['island-name'];
     $newHotelName = $_POST['hotel-name'];
 
+    //If any of the values are empty the result will be set to the old values.
     if ($newMessage == '') {
         $newMessage = $confirmationJSON['addtional_info']['greeting'];
     }
@@ -77,6 +81,7 @@ if (isset($_POST['hotel-stars'], $_POST['greeting-message'], $_POST['island-name
     header('Location: /Admin');
 }
 
+// If the delete booking is posted this eliminates the input id value.
 if (isset($_POST['delete-booking'])) {
     $deleteID = $_POST['delete-booking'];
 
@@ -88,7 +93,7 @@ if (isset($_POST['delete-booking'])) {
 
 <main>
     <section class="admin-logout">
-        <a href="Admin/logout.php">
+        <a href="./logout.php">
             <button>Logout</button>
         </a>
     </section>
@@ -96,15 +101,15 @@ if (isset($_POST['delete-booking'])) {
 
         <form action="" method="POST" class="pricing-form">
             <div>
-                <label for="budget-price">Current budget pricing: <?= $budgetPrice ?>€</label>
+                <label for="budget-price">Current budget pricing: <?= $budgetPrice ?>$</label>
                 <input type="number" name="budget-price" value=<?= $budgetPrice ?> min=0 max=100>
             </div>
             <div>
-                <label for="standard-price">Current standard pricing: <?= $standardPrice ?>€</label>
+                <label for="standard-price">Current standard pricing: <?= $standardPrice ?>$</label>
                 <input type="number" name="standard-price" value=<?= $standardPrice ?> min=0 max=100>
             </div>
             <div>
-                <label for="luxury-price">Current luxury pricing: <?= $luxuryPrice ?>€</label>
+                <label for="luxury-price">Current luxury pricing: <?= $luxuryPrice ?>$</label>
                 <input type="number" name="luxury-price" value=<?= $luxuryPrice ?> min=0 max=100>
             </div>
 
@@ -113,15 +118,15 @@ if (isset($_POST['delete-booking'])) {
 
         <form action="" method="POST" class="pricing-form">
             <div>
-                <label for="sauna-price">Current sauna pricing: <?= $saunaPrice ?>€</label>
+                <label for="sauna-price">Current sauna pricing: <?= $saunaPrice ?>$</label>
                 <input type="number" name="sauna-price" value=<?= $saunaPrice ?> min=0 max=100>
             </div>
             <div>
-                <label for="tour-price">Current tour pricing: <?= $tourPrice ?>€</label>
+                <label for="tour-price">Current tour pricing: <?= $tourPrice ?>$</label>
                 <input type="number" name="tour-price" value=<?= $tourPrice ?> min=0 max=100>
             </div>
             <div>
-                <label for="bed-price">Current extra bed pricing: <?= $bedPrice ?>€</label>
+                <label for="bed-price">Current extra bed pricing: <?= $bedPrice ?>$</label>
                 <input type="number" name="bed-price" value=<?= $bedPrice ?> min=0 max=100>
             </div>
 

@@ -32,7 +32,7 @@ $discount = $priceData['discounts']['threeDayDiscount'];
             <!-- The following form is handled through JS in "booking.js" to prevent page load and check for changes before submition -->
             <aside class="booking-form">
                 <h2>Fill out the following booking form</h2>
-                <p>There is a discount of <?= $discount ?>€ for bookings of 3 days or more!</p>
+                <p>There is a discount of <?= $discount ?>$ for bookings of 3 days or more!</p>
                 <form method="POST" class="book-form">
                     <!-- room selection section -->
                     <section class="book-form-room">
@@ -62,17 +62,17 @@ $discount = $priceData['discounts']['threeDayDiscount'];
                     <section class="book-form-feat">
                         <div>
                             <input type="checkbox" name="features[]" value="sauna" id="feat-sauna" class="feat-select-sauna">
-                            <label for="feat-sauna">Add access to our relaxing sauna <?= $saunaPrice ?>€</label>
+                            <label for="feat-sauna">Add access to our relaxing sauna <?= $saunaPrice ?>$</label>
                         </div>
 
                         <div>
                             <input type="checkbox" name="features[]" value="tour" id="feat-tour" class="feat-select-tour">
-                            <label for="feat-tour">Add an adventurous tour across the island <?= $tourPrice ?>€</label>
+                            <label for="feat-tour">Add an adventurous tour across the island <?= $tourPrice ?>$</label>
                         </div>
 
                         <div>
                             <input type="checkbox" name="features[]" value="bed" id="feat-room" class="feat-select-bed">
-                            <label for="feat-room">Add an extra bed to your room <?= $bedPrice ?>€</label>
+                            <label for="feat-room">Add an extra bed to your room <?= $bedPrice ?>$</label>
                         </div>
                     </section>
 

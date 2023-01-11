@@ -69,7 +69,7 @@ bedSelectInput.addEventListener('change', async () => {
       priceData['room_prices'][`${calendarSelection.value}_price`];
   }
 
-  if (totalDays >= 3) {
+  if (totalDays >= 2) {
     displayNumber -= priceData['discounts']['threeDayDiscount'];
   }
 
