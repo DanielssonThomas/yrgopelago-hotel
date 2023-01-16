@@ -27,13 +27,24 @@ BASE URL: https://thomasdanielsson.coffee/API/
 
 # Code review
 
-1. example.js:10-15 - Remember to think about X and this could be refactored using the amazing Y function.
-2. example.js:10-15 - Remember to think about X and this could be refactored using the amazing Y function.
-3. example.js:10-15 - Remember to think about X and this could be refactored using the amazing Y function.
-4. example.js:10-15 - Remember to think about X and this could be refactored using the amazing Y function.
-5. example.js:10-15 - Remember to think about X and this could be refactored using the amazing Y function.
-6. example.js:10-15 - Remember to think about X and this could be refactored using the amazing Y function.
-7. example.js:10-15 - Remember to think about X and this could be refactored using the amazing Y function.
-8. example.js:10-15 - Remember to think about X and this could be refactored using the amazing Y function.
-9. example.js:10-15 - Remember to think about X and this could be refactored using the amazing Y function.
-10. example.js:10-15 - Remember to think about X and this could be refactored using the amazing Y function.
+1. index.php:2 - Remember to declare strict types to your PHP-files.
+2. main-hotells.php:11-12 To keep consistent commenting, maybe add comment for where budget-room starts.
+3. main-hotells.php:39 To keep consistent commenting, maybe add comment for where luxury-room starts.
+4. main-hotells.php:14-15 Consider using WebP and AVIF formats for images for better compression and faster website!
+5. typography.css:17—28 Add fallback-font to ensure text is user-visible while webfonts are loading.
+
+More General comments:
+
+6. Could be more comments! Although your variables are well-named so it’s quite easy to guess what different functions do.
+
+7. Add a  menu to get an overview of the site’s content?
+
+8. Does not display very well on mobile.
+
+9. Add a calendar-design that better matches your elegant website-design!
+
+10. The hand cursor over calendar indicates that it’s clickable even though it isn’t, consider changing it to an arrow cursor.
+
+11. Lighthouse complains about Cumulative Layout Shift, but I didn’t really think about it when visiting your site. 
+
+Overall, wow! Good job! :star2:
