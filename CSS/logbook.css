@@ -1,0 +1,36 @@
+.card {
+  transition: 0.3s;
+  width: 380px;
+  border: 1px solid black;
+  border-radius: 0.5rem;
+  padding: 2rem;
+  font-family: 'Montserrat-m', sans-serif;
+}
+
+.card-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0;
+  font-weight: bold;
+}
+
+.card-subtitle {
+  font-size: 1.1rem;
+  font-style: italic;
+  margin: 0;
+  padding-top: 0.5rem;
+  font-style: italic;
+}
+
+.card-text {
+  font-size: 1rem;
+}
+
+.row {
+  margin-top: 20px;
+  margin-bottom: 40px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 20px;
+}
